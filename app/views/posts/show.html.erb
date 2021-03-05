@@ -1,4 +1,6 @@
 <p>投稿詳細</p>
 <%= @post.text %>
-<%= link_to "編集", edit_post_path(@post.id) %>
-<%= link_to "削除", post_path(@post.id), method: :delete %>
+<% if user_signed_in? && current_user == @post.user %>
+  <%= link_to "編集", edit_post_path(@post.id) %>
+  <%= link_to "削除", post_path(@post.id), method: :delete %>
+<% end %>
