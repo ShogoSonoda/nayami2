@@ -1,4 +1,4 @@
 <h1>Posts#index</h1>
 <% @posts.each do |post| %>
-  <p><%= post.text %></p>
+  <%= link_to "#{post.text}",post_path(post.id)  %>
 <% end %>
