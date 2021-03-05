@@ -7,6 +7,7 @@ class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :position
+  has_many :posts
 
   validates :nickname, presence: true
   validates :profile, length: { maximum: 200 }
