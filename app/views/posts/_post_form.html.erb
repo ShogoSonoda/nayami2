@@ -1,8 +1,8 @@
-<%= form_with model: @post, local: true do |f| %>
-  <p>悩みを記入してください。</p>
+<%= form_with model: post, local: true do |f| %>
+  <p>悩みを書いてください。</p>
   <%= f.text_area :text %>
   <p>タグを登録してください。</p>
   <p>記入例:[転職,新人,営業](タグとタグの間に","(カンマ)を入力してください。)</p>
-  <%= f.text_field :name, value: @tag_list %>
-  <%= f.submit "更新する" %>
+  <%= f.text_field :name %>
+  <%= f.submit "投稿する" %>
 <% end %>

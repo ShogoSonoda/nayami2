@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :tag_list, only: [:create, :update]
 
   def index
     @posts = Post.includes(:user).order('created_at DESC')
@@ -12,7 +13,6 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.create(post_params)
-    tag_list = params[:post][:name].split(nil)
     if @post.save
       @post.save_tags(tag_list)
       redirect_to root_path
@@ -22,13 +22,16 @@ class PostsController < ApplicationController
   end
 
   def show
+    @tag_list = @post.tags.pluck(:name)
   end
 
   def edit
+    @tag_list = @post.tags.pluck(:name).join(",")
   end
 
   def update
     if @post.update(post_params)
+      @post.save_tags(tag_list)
       redirect_to root_path
     else
       render :edit
@@ -41,6 +44,7 @@ class PostsController < ApplicationController
   end
 
   private
+
   def post_params
     params.require(:post).permit(:text).merge(user_id: current_user.id)
   end
@@ -48,4 +52,9 @@ class PostsController < ApplicationController
   def set_post
     @post = Post.find(params[:id])
   end
+
+  def tag_list
+    tag_list = params[:post][:name].split(",")
+  end
+
 end
