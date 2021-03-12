@@ -8,6 +8,7 @@ class User < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :position
   has_many :posts
+  has_many :empathies
 
   validates :nickname, presence: true
   validates :profile, length: { maximum: 200 }
