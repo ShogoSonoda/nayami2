@@ -20,4 +20,8 @@ class Post < ApplicationRecord
       self.tags << post_tag
     end
   end
+
+  def empathy_by?(user)
+    empathies.where(user_id: user.id).exists?
+  end
 end
