@@ -1,0 +1,2 @@
+class Empathy < ApplicationRecord
+end
