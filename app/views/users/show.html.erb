@@ -2,10 +2,6 @@
 
 <p><%= @user.nickname %></p>
 <p><%= @user.email %></p>
-<p><%= @user.profile %></p>
-<% if @user.position.name? %>
-  <p><%= @user.position.name %></p>
-<% end %>
-<% if @user.avatar? %>
-  <%= image_tag @user.avatar.url %>
-<% end %>
+<p><%= @user.profile if @user.profile %></p>
+<p><%= @user.position.name if @user.position %></p>
+<%= image_tag @user.avatar.url if @user.avatar.url %>
