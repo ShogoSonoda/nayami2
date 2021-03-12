@@ -1,9 +1,11 @@
 <p>投稿詳細</p>
 <p><%= @post.text %></p>
-<% if @post.empathy_by?(current_user) %>
-  <p>共感解除<%= link_to @post.empathies.count, post_empathies_path(@post.id), method: :delete %></p>
-<% else %>
-  <p>共感する<%= link_to @post.empathies.count, post_empathies_path(@post.id), method: :create %></p>
+<% if user_signed_in? %>
+  <% if @post.empathy_by?(current_user) %>
+    <p>共感解除<%= link_to @post.empathies.count, post_empathies_path(@post.id), method: :delete %></p>
+  <% else %>
+    <p>共感する<%= link_to @post.empathies.count, post_empathies_path(@post.id), method: :create %></p>
+  <% end %>
 <% end %>
 <% unless @tag_list.blank? %>
   <p>

@@ -1,4 +1,6 @@
 class EmpathiesController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :destroy]
+
   def create
     empathy = current_user.empathies.build(post_id: params[:post_id])
     empathy.save
