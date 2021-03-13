@@ -20,3 +20,7 @@
 <% end %>
 
 <%= link_to "コメントする", new_post_comment_path(params[:id]) %>
+<p>コメント一覧</p>
+<% @comments.each do |comment| %>
+  <p><%= comment.text %></p>
+<% end %>

@@ -23,6 +23,7 @@ class PostsController < ApplicationController
 
   def show
     @tag_list = @post.tags.pluck(:name)
+    @comments = @post.comments.order('created_at DESC')
   end
 
   def edit
