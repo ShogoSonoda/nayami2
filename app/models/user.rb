@@ -9,6 +9,7 @@ class User < ApplicationRecord
   belongs_to_active_hash :position
   has_many :posts
   has_many :empathies, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :nickname, presence: true
   validates :profile, length: { maximum: 200 }
