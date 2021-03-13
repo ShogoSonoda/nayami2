@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :posts
   has_many :empathies, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :entries, dependent: :destroy
+  has_many :messages, dependent: :destroy
 
   has_many :active_relationships, class_name: "Relationship", foreign_key: :following_id
   has_many :followings, through: :active_relationships, source: :follower
