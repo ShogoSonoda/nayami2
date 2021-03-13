@@ -1,7 +1,7 @@
 <p>投稿詳細</p>
 <%= link_to @post.user.nickname, user_path(@post.user.id) %>
 
-<% if current_user != @post.user %>
+<% if user_signed_in? && current_user != @post.user %>
   <% if @post.user.followed_by?(current_user) %>
     <%= link_to "フォロー中", user_relationships_path(@post.user.id), method: :delete %>
   <% else %>

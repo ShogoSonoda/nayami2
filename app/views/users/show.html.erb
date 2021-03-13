@@ -16,7 +16,7 @@
           <div class="flex flex-col items-center text-center justify-center">
             <h2 class="font-medium title-font mt-4 text-gray-900 text-lg"><%= @user.nickname %></h2>
             <h3 class="mt-2 text-gray-900 text-base">
-              <% if current_user != @user %>
+              <% if user_signed_in? && current_user != @user %>
                 <% if @user.followed_by?(current_user) %>
                   <%= link_to "フォロー中", user_relationships_path(@user.id), method: :delete %>
                 <% else %>
@@ -36,7 +36,9 @@
           </div>
         </div>
         <div class="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
-          <%= link_to "プロフィール編集", edit_user_registration_path(current_user.id) %>
+          <% if user_signed_in? && current_user == @user %>
+            <%= link_to "プロフィール編集", edit_user_registration_path(current_user.id) %>
+          <% end %>
         </div>
       </div>
     </div>
