@@ -19,8 +19,13 @@
   <p><%= link_to "削除", post_path(@post.id), method: :delete %></p>
 <% end %>
 
-<%= link_to "コメントする", new_post_comment_path(params[:id]) %>
-<p>コメント一覧</p>
-<% @comments.each do |comment| %>
-  <p><%= comment.text %></p>
+<% if user_signed_in? %>
+  <%= link_to "コメントする", new_post_comment_path(params[:id]) %>
+  <p>コメント一覧</p>
+  <% @comments.each do |comment| %>
+    <p><%= comment.text %></p>
+    <%= link_to "コメント削除", post_comment_path(comment.id), method: :delete %>
+  <% end %>
+<% else %>
+  <p>コメントするにはログインしてください</p>
 <% end %>
