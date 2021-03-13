@@ -12,7 +12,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.create(post_params)
+    @post = Post.new(post_params)
     if @post.save
       @post.save_tags(tag_list)
       redirect_to root_path
