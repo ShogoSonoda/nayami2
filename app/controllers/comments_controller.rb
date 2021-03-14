@@ -8,7 +8,9 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
+    @post = @comment.post
     if @comment.save
+      @post.create_notification_comment!(current_user, @comment.id)
       redirect_to post_path(params[:post_id])
     else
       render :new
