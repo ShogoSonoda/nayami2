@@ -1,0 +1,11 @@
+<% visitor = notification.visitor %>
+<% post = notification.post %>
+
+<p>
+  <%= link_to "#{notification.visitor.nickname}", user_path(notification.visitor) %>
+  <%== notification_form(notification) %>
+  <span><%= "(#{time_ago_in_words(notification.created_at)}前)" %></span>
+  <% if !@comment.nil? %>
+    <p><%= @comment %></p>
+  <% end %>
+</p>

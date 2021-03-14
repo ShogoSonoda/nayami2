@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'messages/create'
-  get 'rooms/create'
-  get 'rooms/show'
   root to: "posts#index"
   
   devise_for :users, controllers: { registrations: 'users/registrations' }
@@ -21,4 +18,6 @@ Rails.application.routes.draw do
   resources :messages, only: [:create]
 
   resources :rooms, only: [:create, :show]
+
+  resources :notifications, only: :index
 end

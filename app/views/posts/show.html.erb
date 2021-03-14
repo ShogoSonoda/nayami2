@@ -34,7 +34,9 @@
   <p>コメント一覧</p>
   <% @comments.each do |comment| %>
     <p><%= comment.text %></p>
-    <%= link_to "コメント削除", post_comment_path(comment.id), method: :delete %>
+    <% if comment.user == current_user %>
+      <%= link_to "コメント削除", post_comment_path(@post, comment), method: :delete %>
+    <% end %>
   <% end %>
 <% else %>
   <p>コメントするにはログインしてください</p>

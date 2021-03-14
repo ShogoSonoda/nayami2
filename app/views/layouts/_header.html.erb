@@ -6,6 +6,10 @@
         <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-5 hover:text-gray-900" %>
         <%= link_to "#{current_user.nickname}", user_path(current_user.id), class: "mr-5 hover:text-gray-900" %>
         <%= link_to "新規投稿", new_post_path, class: "mr-5 hover:text-gray-900" %>
+        <%= link_to "通知", notifications_path, class: "mr-5 hover:text-gray-900" %>
+        <% if unchecked_notifications.any? %>
+          <p>未確認通知あり</p>
+        <% end %>
       <% else %>
         <%= link_to "新規登録", new_user_registration_path, class: "mr-5 hover:text-gray-900" %>
         <%= link_to "ログイン", new_user_session_path, class: "mr-5 hover:text-gray-900" %>
