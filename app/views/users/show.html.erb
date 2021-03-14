@@ -36,8 +36,21 @@
           </div>
         </div>
         <div class="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
-          <% if user_signed_in? && current_user == @user %>
-            <%= link_to "プロフィール編集", edit_user_registration_path(current_user.id) %>
+          <% if user_signed_in? %>
+            <% if current_user == @user %>
+              <%= link_to "プロフィール編集", edit_user_registration_path(current_user.id) %>
+            <% else %>
+              <% if @isRoom == true %>
+                <%= link_to "DM詳細", room_path(@roomId) %>
+              <% else %>
+                <%= form_with model: @room do |f| %>
+                  <%= fields_for @entry do |e| %>
+                    <%= e.hidden_field :user_id, value: @user.id %>
+                  <% end %>
+                  <%= f.submit "DMを送る" %>
+                <% end %>
+              <% end %>
+            <% end %>
           <% end %>
         </div>
       </div>

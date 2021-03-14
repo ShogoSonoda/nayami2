@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'messages/create'
+  get 'rooms/create'
+  get 'rooms/show'
   root to: "posts#index"
   
   devise_for :users, controllers: { registrations: 'users/registrations' }

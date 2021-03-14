@@ -1,0 +1,12 @@
+<%=  %>
+<% if @messages.present? %>
+  <% @messages.each do |message| %>
+    <%= link_to "#{message.user.nickname}", user_path(message.user.id) %>
+    <p><%= message.text %></p>
+  <% end %>
+<% end %>
+<%= form_with model: @message do |f| %>
+  <%= f.text_field :text %>
+  <%= f.hidden_field :room_id, value: @room.id %>
+  <%= f.submit "送信" %>
+<% end %>
