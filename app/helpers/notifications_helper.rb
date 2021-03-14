@@ -12,6 +12,8 @@ module NotificationsHelper
       when "comment" then
         @comment = Comment.find_by(id: notification.comment.id)&.text
         "#{visitor}が#{your_post}にコメントしました。"
+      when "dm" then
+        "#{visitor}があなたにDMを送りました。"
     end
   end
 
