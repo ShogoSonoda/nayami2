@@ -59,6 +59,11 @@ class PostsController < ApplicationController
     end
   end
 
+  def sort_select
+    selection = params[:keyword]
+    @posts = Post.sort(selection)
+  end
+
   private
 
   def post_params
