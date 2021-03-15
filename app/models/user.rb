@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   mount_uploader :avatar, AvatarUploader
+  
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :position
   has_many :posts
