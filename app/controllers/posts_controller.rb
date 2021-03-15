@@ -44,6 +44,21 @@ class PostsController < ApplicationController
     redirect_to root_path
   end
 
+  def search
+    if params[:text].present?
+      @posts = Post.where('text LIKE ?', "%#{params[:text]}%")
+    elsif params[:tag_ids].present?
+      params[:tag_ids].each do |tag_id|
+        unless tag_id.blank?
+          tag = Tag.find(tag_id)
+          @posts = tag.posts
+        end
+      end
+    else
+      @posts = Post.none
+    end
+  end
+
   private
 
   def post_params
