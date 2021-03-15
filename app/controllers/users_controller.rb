@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def show
     @user = User.find(params[:id])
     @currentUserEntry = Entry.where(user_id: current_user.id)
@@ -16,6 +17,14 @@ class UsersController < ApplicationController
         @room = Room.new
         @entry = Entry.new
       end
+    end
+  end
+
+  def search
+    if params[:position_id].present?
+      @users = User.where(position_id: params[:position_id])
+    else
+      @users = User.all
     end
   end
 end

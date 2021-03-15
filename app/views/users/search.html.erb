@@ -1,0 +1,12 @@
+<%= form_with url: search_users_path, method: :get, local: true do |f| %>
+  <p>役職で探す</p>
+    <%= f.collection_select(:position_id, Position.all, :id, :name, include_blank: "すべて") %>
+
+    <%= f.submit "検索" %>
+<% end %>
+
+<% unless @users.nil? %>
+  <% @users.each do |user| %>
+    <p><%= user.nickname %></p>
+  <% end %>
+<% end %>
