@@ -2,11 +2,17 @@
 <% visited = notification.visited %>
 <% post = notification.post %>
 
-<p>
-  <%= link_to "#{notification.visitor.nickname}", user_path(notification.visitor) %>
+<div class="mb-2">
+  <%= link_to user_path(visitor) do %>
+    <% if visitor.avatar.url %>
+      <%= image_tag visitor.avatar.url, class: "w-10 h-10 rounded-full inline-flex items-center justify-center" %>
+    <% else %>
+      <%= image_tag 'default.png', class: "w-10 h-10 rounded-full inline-flex items-center justify-center" %>
+    <% end %>
+  <% end %>
   <%== notification_form(notification) %>
-  <span><%= "(#{time_ago_in_words(notification.created_at)}前)" %></span>
+  <span>(<%= time_ago_in_words(notification.created_at) %> ago)</span>
   <% if !@comment.nil? %>
     <p><%= @comment %></p>
   <% end %>
-</p>
+</div>

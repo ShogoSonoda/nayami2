@@ -1,0 +1,43 @@
+<div class="container px-5 py-24 mx-auto">
+  <div class="flex flex-wrap -m-4">
+    <% @posts.each do |post| %>
+      <div class="p-4 md:w-1/3">
+        <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
+          <%= link_to user_path(post.user_id) do %>
+            <div class="flex items-center mb-3">
+              <% if post.user.avatar.url %>
+                <div class="">
+                  <%= image_tag post.user.avatar.url, class: "w-8 h-8 rounded-full inline-flex items-center justify-center" if post.user.avatar.url %>
+                </div>
+              <% else %>
+                <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
+                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+              <% end %>
+              <h2 class="text-gray-900 text-lg title-font font-medium ml-2"><%= post.user.nickname %></h2>
+            </div>
+          <% end %>
+          <div class="flex-grow mb-3">
+            <%= link_to post_path(post.id) do %>
+              <p class="leading-relaxed text-base"><%= post.text.truncate(50) %></p>
+            <% end %>
+          </div>
+          <% if user_signed_in? %>
+            <% if post.empathy_by?(current_user) %>
+              <%= link_to post_empathies_path(post.id), method: :delete do %>
+                <i class="fas fa-heart mr-2"></i><%= post.empathies.count %>
+              <% end %>
+            <% else %>
+              <%= link_to post_empathies_path(post.id), method: :create do %>
+                <i class="far fa-heart mr-2"></i><%= post.empathies.count %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

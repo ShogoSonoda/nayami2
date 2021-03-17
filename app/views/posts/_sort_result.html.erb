@@ -1,10 +1,1 @@
-<% @posts.each do |post| %>
-  <p><%= link_to "#{post.text}",post_path(post.id) %></p>
-  <% if user_signed_in? %>
-    <% if post.empathy_by?(current_user) %>
-      <p>共感解除<%= link_to post.empathies.count, post_empathies_path(post.id), method: :delete %></p>
-    <% else %>
-      <p>共感する<%= link_to post.empathies.count, post_empathies_path(post.id), method: :create %></p>
-    <% end %>
-  <% end %>
-<% end %>
+<%= render 'posts/posts_index' %>
