@@ -6,16 +6,9 @@
           <%= link_to user_path(post.user_id) do %>
             <div class="flex items-center mb-3">
               <% if post.user.avatar.url %>
-                <div class="">
-                  <%= image_tag post.user.avatar.url, class: "w-8 h-8 rounded-full inline-flex items-center justify-center" if post.user.avatar.url %>
-                </div>
+                <%= image_tag post.user.avatar.url, class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
               <% else %>
-                <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
-                </div>
+                <%= image_tag 'default.png', class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
               <% end %>
               <h2 class="text-gray-900 text-lg title-font font-medium ml-2"><%= post.user.nickname %></h2>
             </div>

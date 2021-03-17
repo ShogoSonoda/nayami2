@@ -1,43 +1,90 @@
-<p>投稿詳細</p>
-<%= link_to @post.user.nickname, user_path(@post.user.id) %>
-
-<% if user_signed_in? && current_user != @post.user %>
-  <% if @post.user.followed_by?(current_user) %>
-    <%= link_to "フォロー中", user_relationships_path(@post.user.id), method: :delete %>
-  <% else %>
-    <%= link_to "フォローする", user_relationships_path(@post.user.id), method: :post %>
-  <% end %>
-<% end %>
-
-<p><%= @post.text %></p>
-<% if user_signed_in? %>
-  <% if @post.empathy_by?(current_user) %>
-    <p>共感解除<%= link_to @post.empathies.count, post_empathies_path(@post.id), method: :delete %></p>
-  <% else %>
-    <p>共感する<%= link_to @post.empathies.count, post_empathies_path(@post.id), method: :create %></p>
-  <% end %>
-<% end %>
-<% unless @tag_list.blank? %>
-  <p>
-    <% @tag_list.each do |tag| %>
-      <%= tag %>
+<div class="container px-5 py-24 mx-auto">
+  <div class="lg:w-1/2 md:w-2/3 mx-auto">
+    <div class="block flex justify-between mb-2">
+      <%= link_to user_path(@post.user.id) do %>
+        <div class="inline-block">
+          <% if @post.user.avatar.url %>
+            <%= image_tag @post.user.avatar.url, class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
+          <% else %>
+            <%= image_tag 'default.png', class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
+          <% end %>
+        </div>
+        <div class="inline-block">
+          <%= @post.user.nickname %>
+        </div>
+      <% end %>
+      <% if user_signed_in? && current_user == @post.user %>
+        <div class="inline-block">
+          <div class="inline-block">
+            <%= link_to "編集", edit_post_path(@post.id) %>
+          </div>
+          <div class="inline-block">
+            <%= link_to "削除", post_path(@post.id), method: :delete %>
+          </div>
+        </div>
+      <% else %>
+        <div class="inline-block">
+          <% if @post.user.followed_by?(current_user) %>
+            <%= link_to "フォロー中", user_relationships_path(@post.user.id), method: :delete %>
+          <% else %>
+            <%= link_to "フォローする", user_relationships_path(@post.user.id), method: :post %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="block mb-2">
+      <% if user_signed_in? %>
+        <% if @post.empathy_by?(current_user) %>
+          <%= link_to post_empathies_path(@post.id), method: :delete do %>
+            <i class="fas fa-heart mr-2"></i><%= @post.empathies.count %>
+          <% end %>
+        <% else %>
+          <%= link_to post_empathies_path(@post.id), method: :create do %>
+            <i class="far fa-heart mr-2"></i><%= @post.empathies.count %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="block mb-2">
+      <% unless @tag_list.blank? %>
+        <% @tag_list.each do |tag| %>
+          <div class="inline-block border px-2 py-1"><%= tag %></div>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="block mb-5">
+      <p><%= @post.text %></p>
+    </div>
+    <% if user_signed_in? %>
+      <div class="block my-24 text-center text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg" >
+        <div class="inline-block">
+          <%= link_to "コメントする", new_post_comment_path(params[:id]) %>
+        </div>
+      </div>
+      <% @comments.each do |comment| %>
+        <div class="p-2 mb-5">
+          <div class="block mb-2 flex justify-between">
+            <%= link_to user_path(comment.user.id) do %>
+              <div class="inline-block">
+                <% if comment.user.avatar.url %>
+                  <%= image_tag comment.user.avatar.url, class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
+                <% else %>
+                  <%= image_tag 'default.png', class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
+                <% end %>
+              </div>
+              <div class="inline-block ml-2">
+                <%= comment.user.nickname %>
+              </div>
+            <% end %>
+            <div class="inline-block">
+              <%= link_to "削除", post_comment_path(@post, comment), method: :delete if comment.user == current_user %>
+            </div>
+          </div>
+          <div class="block py-2"><%= comment.text %></div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="blodk">コメントするにはログインしてください</div>
     <% end %>
-  </p>
-<% end %>
-<% if user_signed_in? && current_user == @post.user %>
-  <p><%= link_to "編集", edit_post_path(@post.id) %></p>
-  <p><%= link_to "削除", post_path(@post.id), method: :delete %></p>
-<% end %>
-
-<% if user_signed_in? %>
-  <%= link_to "コメントする", new_post_comment_path(params[:id]) %>
-  <p>コメント一覧</p>
-  <% @comments.each do |comment| %>
-    <p><%= comment.text %></p>
-    <% if comment.user == current_user %>
-      <%= link_to "コメント削除", post_comment_path(@post, comment), method: :delete %>
-    <% end %>
-  <% end %>
-<% else %>
-  <p>コメントするにはログインしてください</p>
-<% end %>
+  </div>
+</div>
