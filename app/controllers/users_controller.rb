@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :follows, :followers]
 
   def show
-    @user = User.find(params[:id])
     @posts = @user.posts
     @currentUserEntry = Entry.where(user_id: current_user.id)
     @userEntry = Entry.where(user_id: @user.id)
@@ -27,5 +27,19 @@ class UsersController < ApplicationController
     else
       @users = User.all
     end
+  end
+
+  def follows
+    @users = @user.followings
+  end
+
+  def followers
+    @users = @user.followers
+  end
+
+  private
+
+  def set_user
+    @user = User.find(params[:id])
   end
 end

@@ -52,8 +52,8 @@
       <% end %>
     </div>
     <div class="block ml-24">
-      <div class="inline mr-2">フォロー <%= @user.followings.length %></div>
-      <div class="inline">フォロワー <%= @user.followers.length %></div>
+      <div class="inline mr-2">フォロー <%= link_to @user.followings.length, follows_user_path(@user.id) %></div>
+      <div class="inline">フォロワー <%= link_to @user.followers.length, followers_user_path(@user.id) %></div>
     </div>
   </div>
 </div>
