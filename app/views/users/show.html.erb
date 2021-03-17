@@ -11,7 +11,7 @@
         </div>
         <div class="flex flex-col ml-4">
           <div class="inline text-2xl"><%= @user.nickname %></div>
-          <div class="inline text-lg"><%= @user.position.name %></div>
+          <div class="inline text-lg"><%= @user.position.name if @user.position %></div>
         </div>
       </div>
       <div class="flex flex-col text-right">

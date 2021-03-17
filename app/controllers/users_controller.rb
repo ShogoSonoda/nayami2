@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def search
     if params[:position_id].present?
-      @users = User.where(position_id: params[:position_id])
+      @users = User.where(position_id: params[:position_id]).where.not(id: current_user.id)
     else
       @users = User.all
     end

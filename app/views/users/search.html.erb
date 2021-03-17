@@ -1,44 +1,42 @@
 <div class="container mx-auto">
-  <%= form_with url: search_users_path, method: :get, local: true, class: "w-full max-w-sm mx-auto" do |f| %>
-    <%= f.collection_select(
-      :position_id, Position.all, :id, :name,
-      {include_blank: "すべて"},
-      {class: "rounded border border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-green-500 text-base pl-3 pr-10" }
-      ) %>
-    <%= f.submit "ユーザー検索", class: "ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded" %>
-  <% end %>
-
-
-  <% unless @users.nil? %>
-    <% @users.each do |user| %>
-      <div class="xl:w-1/3 md:w-1/2 p-4 mx-auto">
-        <div class="flex justify-around border border-gray-200 p-6 rounded-lg">
-          <div class="">
-            <%= link_to user_path(user.id) do %>
+  <div class="block">
+    <%= form_with url: search_users_path, method: :get, local: true, class: "w-full max-w-sm mx-auto text-center" do |f| %>
+      <%= f.collection_select(
+        :position_id, Position.all, :id, :name,
+        {include_blank: "すべて"},
+        {class: "rounded border border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-green-500 text-base pl-3 pr-10" }
+        ) %>
+      <%= f.submit "ユーザー検索", class: "ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded" %>
+    <% end %>
+  </div>
+  <div class="xl:w-1/3 md:w-1/2 py-2 px-4 mx-auto">
+    <% unless @users.nil? %>
+      <% @users.each do |user| %>
+        <div class="block my-4 flex justify-between">
+          <div>
+            <div class="inline-block mr-2">
               <% if user.avatar.url %>
-                <%= image_tag user.avatar.url, class: "w-10 h-10 rounded-full inline-flex items-center justify-center" %>
+                <%= image_tag user.avatar.url, class: "w-20 h-20 rounded-full inline-flex items-center justify-center" %>
+              <% else%>
+                <%= image_tag 'default.png', class: "w-20 h-20 rounded-full inline-flex items-center justify-center" %>
+              <% end %>
+            </div>
+            <div class="inline-block mt-2">
+              <div class="text-lg"><%= user.nickname %></div>
+              <div class="text-sm"><%= user.position.name if user.position %></div>
+            </div>
+          </div>
+          <div class="mt-4">
+            <% if user_signed_in? && current_user != user %>
+              <% if user.followed_by?(current_user) %>
+                <%= link_to "フォロー中", user_relationships_path(user.id), method: :delete, class: "text-white bg-green-500 py-2 px-8 hover:bg-green-600 rounded" %>
               <% else %>
-                <%= image_tag 'default.png', class: "w-10 h-10 rounded-full inline-flex items-center justify-center" %>
+                <%= link_to "フォローする", user_relationships_path(user.id), method: :post,class: "text-green-500 bg-white py-2 px-8 hover:bg-white rounded border" %>
               <% end %>
             <% end %>
           </div>
-          <div>
-            <%= link_to "#{user.nickname}", user_path(user.id), class: "text-lg text-gray-900 font-medium title-font mb-2" %>
-            <h3 class="leading-relaxed text-base"><%= user.position.name if user.position %></h3>
-          </div>
-          <div class="">
-            <h3 class="text-gray-900 text-base">
-              <% if user_signed_in? && current_user != user %>
-                <% if user.followed_by?(current_user) %>
-                  <%= link_to "フォロー中", user_relationships_path(user.id), method: :delete %>
-                <% else %>
-                  <%= link_to "フォローする", user_relationships_path(user.id), method: :post %>
-                <% end %>
-              <% end %>
-            </h3>
-          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
