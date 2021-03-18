@@ -14,34 +14,34 @@
           <div class="inline text-lg"><%= @user.position.name if @user.position %></div>
         </div>
       </div>
-      <div class="flex flex-col text-right">
-        <div class="inline-block">
+      <div class="text-center">
+        <div class="block flex flex-col">
+          <% if user_signed_in? && current_user == @user %>
+            <%= link_to "プロフィール編集", edit_user_registration_path(current_user.id), class: "inline-block border py-1 px-2 rounded-lg" %>
+            <%= link_to "DM一覧", rooms_path, class: "inline-block mt-2 text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded" %>
+          <% end %>
+
           <% if user_signed_in? && current_user != @user %>
             <% if @user.followed_by?(current_user) %>
-              <%= link_to "フォロー中", user_relationships_path(@user.id), method: :delete, class: "text-white bg-green-500 py-2 px-8 hover:bg-green-600 rounded" %>
+              <%= link_to "フォロー中", user_relationships_path(@user.id), method: :delete, class: "inline-block text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded" %>
             <% else %>
-              <%= link_to "フォローする", user_relationships_path(@user.id), method: :post,class: "text-green-500 bg-white py-2 px-8 hover:bg-white rounded border" %>
+              <%= link_to "フォローする", user_relationships_path(@user.id), method: :post,class: "inline-block text-green-500 bg-white py-1 px-2 hover:bg-white rounded border" %>
             <% end %>
           <% end %>
-        </div>
-        <% if user_signed_in? %>
-          <% if current_user == @user %>
-            <div class="inline-block">
-              <%= link_to "プロフィール編集", edit_user_registration_path(current_user.id) %>
-            </div>
-          <% else %>
+
+          <% if user_signed_in? && current_user != @user %>
             <% if @isRoom == true %>
-              <div class="inline-block mt-4"><%= link_to "DM", room_path(@roomId), class: "text-white bg-green-500 py-2 px-8 hover:bg-green-600 rounded" %></div>
+              <%= link_to "DM", room_path(@roomId), class: "inline-block mt-2 text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded" %>
             <% else %>
               <%= form_with model: @room do |f| %>
                 <%= fields_for @entry do |e| %>
                   <%= e.hidden_field :user_id, value: @user.id %>
                 <% end %>
-                <div class="inline-block mt-4"><%= f.submit "DM", class: "text-white bg-green-500 py-2 px-8 hover:bg-green-600 rounded" %></div>
+                  <%= f.submit "DM", class: "inline-block text-white bg-green-500 py-2 px-4 hover:bg-green-600 rounded" %>
               <% end %>
             <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
     </div>
     <div class="block ml-24 py-2">
