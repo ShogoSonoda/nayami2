@@ -21,4 +21,15 @@
       <% end %>
     </nav>
   </div>
+  <div class="container mx-auto flex justify-around mt-5">
+    <div class="inline-block border rounded-full text-white bg-green-500 py-1 px-2 hover:bg-green-600">
+      <%= link_to "新しい悩み", posts_path %>
+    </div>
+    <div class="inline-block border rounded-full text-white bg-green-500 py-1 px-2 hover:bg-green-600">
+      <%= link_to "共感されている悩み", sort_empathy_posts_path %>
+    </div>
+    <div class="inline-block border rounded-full text-white bg-green-500 py-1 px-2 hover:bg-green-600">
+      <%= link_to "タグで探す", tag_index_posts_path %>
+    </div>
+  </div>
 </header>

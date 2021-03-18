@@ -15,7 +15,9 @@ Rails.application.routes.draw do
     resource :empathies, only: [:create, :destroy]
     resources :comments, only: [:new, :create, :destroy]
     get :search, on: :collection
-    get :sort_select, on: :collection
+    get :sort_empathy, on: :collection
+    get :tag_index, on: :collection
+    get :tag_posts, on: :collection
   end
 
   resources :messages, only: [:create]

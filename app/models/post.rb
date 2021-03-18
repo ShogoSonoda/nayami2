@@ -63,17 +63,4 @@ class Post < ApplicationRecord
     end
     notification.save if notification.valid?
   end
-
-  def self.sort(selection)
-    case selection
-    when 'new'
-      return all.order(created_at: :DESC)
-    when 'old'
-      return all.order(created_at: :ASC)
-    when 'empathy'
-      return find(Empathy.group(:post_id).order(Arel.sql('count(post_id) desc')).pluck(:post_id))
-    when 'noempathy'
-      return find(Empathy.group(:post_id).order(Arel.sql('count(post_id) asc')).pluck(:post_id))
-    end
-  end
 end

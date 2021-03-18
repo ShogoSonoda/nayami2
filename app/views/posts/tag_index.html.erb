@@ -1,0 +1,9 @@
+<div class="container px-5 py-24 mx-auto">
+  <div class="lg:w-1/2 md:w-2/3 mx-auto">
+    <% @tags.each do |tag| %>
+      <div class="inline-block border px-2 py-1 mb-1">
+        <%= link_to tag.name, tag_posts_posts_path(tag_id: tag.id) %>
+      </div>
+    <% end %>
+  </div>
+</div>
