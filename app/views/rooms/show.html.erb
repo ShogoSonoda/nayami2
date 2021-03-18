@@ -1,7 +1,7 @@
 <div class="container mx-auto p-10">
   <div class="lg:w-1/2 md:w-2/3 mx-auto">
     <div class="block text-3xl text-center mb-5">
-      <%= @dmUser.nickname %>
+      <%= link_to @dmUser.nickname, user_path(@dmUser.id) %>
     </div>
     <% if @messages.present? %>
       <% @messages.each do |message| %>
