@@ -1,12 +1,38 @@
-<%=  %>
-<% if @messages.present? %>
-  <% @messages.each do |message| %>
-    <%= link_to "#{message.user.nickname}", user_path(message.user.id) %>
-    <p><%= message.text %></p>
-  <% end %>
-<% end %>
-<%= form_with model: @message do |f| %>
-  <%= f.text_field :text %>
-  <%= f.hidden_field :room_id, value: @room.id %>
-  <%= f.submit "送信" %>
-<% end %>
+<div class="container mx-auto p-10">
+  <div class="lg:w-1/2 md:w-2/3 mx-auto">
+    <div class="block text-3xl text-center mb-5">
+      <%= @dmUser.nickname %>
+    </div>
+    <% if @messages.present? %>
+      <% @messages.each do |message| %>
+        <% if @dmUser == message.user %>
+          <div class="block mb-3">
+            <div class="block">
+              <%= link_to "#{message.user.nickname}", user_path(message.user.id) %>
+            </div>
+            <div class="inline-block border rounded-full px-2 py-1">
+              <%= message.text %>
+            </div>
+          </div>
+        <% else %>
+          <div class="block mb-3 text-right">
+            <div class="block">
+              <%= link_to "#{message.user.nickname}", user_path(message.user.id) %>
+            </div>
+            <div class="inline-block border rounded-full px-2 py-1 bg-yellow-300">
+              <%= message.text %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <div class="block text-center mt-10">
+      <%= form_with model: @message do |f| %>
+        <%= f.text_field :text, class: "border py-1 px-2 w-5/6" %>
+        <%= f.hidden_field :room_id, value: @room.id %>
+        <%= f.submit "送信", class: "text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded" %>
+      <% end %>
+    </div>
+  </div>
+</div>
