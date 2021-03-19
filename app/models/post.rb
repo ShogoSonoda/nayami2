@@ -7,6 +7,7 @@ class Post < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   validates :text, presence: true
+  validates :text, length: { maximum: 2000 }
   validates :user_id, presence: true
 
   def save_tags(tags)
