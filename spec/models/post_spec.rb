@@ -4,7 +4,7 @@ RSpec.describe Post, type: :model do
 
   before do
     user = create(:user)
-    @post = Post.new(text: "あ"*2000, user_id: user.id)
+    @post = create(:post, user_id: user.id)
   end
 
   context '悩み新規投稿できる場合' do

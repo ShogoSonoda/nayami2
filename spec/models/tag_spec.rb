@@ -4,6 +4,7 @@ RSpec.describe Tag, type: :model do
   before do
     @tag = Tag.create(name: "転職")
   end
+  
   context 'タグを保存できる場合' do
     it "nameがあればタグ登録できる" do
       expect(@tag).to be_valid
