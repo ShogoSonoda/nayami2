@@ -4,4 +4,6 @@ class Message < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   validates :text, presence: true
+  validates :user_id, presence: true
+  validates :room_id, presence: true
 end
