@@ -49,7 +49,7 @@ class PostsController < ApplicationController
       @posts = Post.where('text LIKE ?', "%#{params[:text]}%")
     elsif params[:tag_ids].present?
       params[:tag_ids].each do |tag_id|
-        unless tag_id.blank?
+        if tag_id.present?
           tag = Tag.find(tag_id)
           @posts = tag.posts
         end

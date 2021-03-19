@@ -8,7 +8,7 @@ class User < ApplicationRecord
   
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :position
-  has_many :posts
+  has_many :posts, dependent: :destroy
   has_many :empathies, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :entries, dependent: :destroy
