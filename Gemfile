@@ -68,6 +68,7 @@ gem 'kaminari'
 gem 'fog-aws'
 gem 'dotenv-rails'
 
-group :production do
-  gem 'unicorn', '6.0.0'
-end
+# Pumaを使うためコメントアウト中
+# group :production do
+#   gem 'unicorn', '6.0.0'
+# end
