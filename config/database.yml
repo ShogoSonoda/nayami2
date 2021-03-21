@@ -50,6 +50,7 @@ test:
 #
 production:
   <<: *default
-  database: nayami2_production
-  username: nayami2
-  password: <%= ENV['NAYAMI2_DATABASE_PASSWORD'] %>
+  database: <%= Rails.application.credentials.db[:database] %>
+  username: <%= Rails.application.credentials.db[:username] %>
+  password: <%= Rails.application.credentials.db[:password] %>
+  socket: <%= Rails.application.credentials.db[:socket] %>
