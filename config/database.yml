@@ -50,7 +50,7 @@ test:
 #
 production:
   <<: *default
-  database: nayami2_production
+  database: nayami2
   username: root
-  password: <%= Rails.application.credentials.db[:password] %>
-  host: <%= Rails.application.credentials.db[:hostname] %>
+  password: 
+  socket: /var/lib/mysql/mysql.sock

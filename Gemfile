@@ -8,7 +8,7 @@ gem 'rails', '~> 6.1.3'
 # Use mysql as the database for Active Record
 gem 'mysql2', '~> 0.5'
 # Use Puma as the app server
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -67,8 +67,3 @@ gem 'active_hash'
 gem 'kaminari'
 gem 'fog-aws'
 gem 'dotenv-rails'
-
-# Pumaを使うためコメントアウト中
-# group :production do
-#   gem 'unicorn', '6.0.0'
-# end
