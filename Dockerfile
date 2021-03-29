@@ -5,7 +5,5 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && apt-get install -y nodejs yarn
 WORKDIR /nayami2
 COPY . /nayami2
-RUN bundle update mimemagic
-RUN gem install bundler:2.2.11
 RUN bundle config --local set path 'vendor/bundle' \
   && bundle install
