@@ -1,7 +1,4 @@
 version: 2.1
-orbs:
-  ruby: circleci/ruby@0.1.2 
-
 jobs:
   build:
     docker:
@@ -14,16 +11,11 @@ jobs:
           - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
           - MYSQL_ROOT_HOST: '%'
         command: --default-authentication-plugin=mysql_native_password
+
+    working_directory: ~/nayami
+
     steps:
       - checkout
-      - run:
-          name: "Node.js と npm の更新"
-          command: |
-            curl -sSL "https://nodejs.org/dist/v11.10.0/node-v11.10.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.10.0-linux-x64/bin/node
-            curl https://www.npmjs.com/install.sh | sudo bash
-      - run:
-          name: 現行バージョンのノードのチェック
-          command: node -v
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
@@ -31,36 +23,34 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            gem install bundler
+            gem install bundler -v 2.2.11
             bundle install --jobs=4 --retry=3 --path vendor/bundle
       - save_cache:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-
       - run: mv config/database.yml.ci config/database.yml 
-      # Database setup
-      - run: bundle exec rails db:create
-      - run: bundle exec rails db:schema:load
-# rubocop
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+      # rubocop
       - run:
           name: Rubocop
           command: bundle exec rubocop
+      # rspec
       - run:
           name: run tests
           command: |
-            rm -rf bin/webpack*
-            gem install rails
-            rails webpacker:install
-            RAILS_ENV=test bundle exec rails webpacker:compile
             mkdir /tmp/test-results
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
               circleci tests split --split-by=timings)"
             bundle exec rspec \
               --format progress \
+              --format RspecJunitFormatter \
               --out /tmp/test-results/rspec.xml \
               --format progress \
               $TEST_FILES
+
+      # collect reports
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
