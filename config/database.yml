@@ -50,7 +50,7 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 
-# AWS
+# RDS
 production:
   <<: *default
   database: nayami2_production

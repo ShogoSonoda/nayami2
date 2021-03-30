@@ -4,7 +4,7 @@ RSpec.describe Tag, type: :model do
   before do
     @tag = Tag.create(name: "転職")
   end
-  
+
   context 'タグを保存できる場合' do
     it "nameがあればタグ登録できる" do
       expect(@tag).to be_valid
@@ -17,7 +17,7 @@ RSpec.describe Tag, type: :model do
       @tag.valid?
       expect(@tag).to be_invalid
     end
-    
+
     it "nameが51文字以上だとタグ登録できない" do
       @tag.name = "あ" * 51
       @tag.valid?
@@ -31,5 +31,5 @@ RSpec.describe Tag, type: :model do
       another_tag.valid?
       expect(another_tag).to be_invalid
     end
-  end 
+  end
 end

@@ -12,14 +12,14 @@ RSpec.describe Message, type: :model do
       expect(@message).to be_valid
     end
   end
-  
+
   context 'メッセージを送信できない場合' do
     it 'textが空だと送信できない' do
       @message.text = ""
       @message.valid?
       expect(@message).to be_invalid
     end
-    
+
     it 'user_idが空だと送信できない' do
       @message.user_id = ""
       @message.valid?
