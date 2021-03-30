@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-
   before do
     user = create(:user)
     @post = create(:post, user_id: user.id)
