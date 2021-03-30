@@ -6,11 +6,10 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:3.0.0
+        environment:
+          BUNDLER_VERSION: 2.2.11
     executor: ruby/default
     steps:
       - checkout
-      - run: gem install bundler:2.2.11
-      - run:
-          name: Which bundler?
-          command: bundle -v
-      - ruby/bundle-install
+      - ruby/install-deps
+      
