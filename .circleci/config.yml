@@ -64,11 +64,12 @@ jobs:
 
   deploy:
     machine:
-      image: circleci/classic:edge
+      enabled: true
     steps:
-      - checkout
       - add_ssh_keys:
-      - run: ssh ${USER_NAME}@${HOST_NAME} 'cd /var/www/nayami2 && git pull origin master'
+          fingerprints:
+            - 37:87:4c:e8:7c:84:72:f1:b3:54:1c:36:1f:86:c5:d6
+      - run: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "/home/ec2-user/nayami2/deploy-me.sh"
 
 workflows:
   version: 2
