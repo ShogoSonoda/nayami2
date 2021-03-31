@@ -1,7 +1,7 @@
 module NotificationsHelper
 
   def notification_form(notification)
-    comment = nil
+    @comment = nil
     visitor = link_to notification.visitor.nickname, notification.visitor
     your_post = link_to "あなたの投稿", notification.post
     case notification.action
@@ -10,7 +10,7 @@ module NotificationsHelper
       when "empathy" then
         "#{visitor}が#{your_post}に共感しました。"
       when "comment" then
-        comment = Comment.find_by(id: notification.comment.id)&.text
+        @comment = Comment.find_by(id: notification.comment.id)&.text
         "#{visitor}が#{your_post}にコメントしました。"
       when "dm" then
         "#{visitor}があなたにDMを送りました。"
@@ -18,6 +18,6 @@ module NotificationsHelper
   end
 
   def unchecked_notifications
-    notifications = current_user.passive_notifications.where(checked: false)
+    @notifications = current_user.passive_notifications.where(checked: false)
   end
 end
