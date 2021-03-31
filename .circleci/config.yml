@@ -1,4 +1,7 @@
 version: 2.1
+orbs:
+  ruby: circleci/ruby@0.1.2
+
 jobs:
   build:
     docker:
@@ -32,10 +35,12 @@ jobs:
       - run: mv config/database.yml.ci config/database.yml 
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
+      
       # rubocop
       - run:
           name: Rubocop
           command: bundle exec rubocop -a
+
       # rspec
       - run:
           name: run tests
@@ -56,3 +61,24 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - 37:87:4c:e8:7c:84:72:f1:b3:54:1c:36:1f:86:c5:d6
+      - run: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "cd /var/www/nayami2/ && git pull"
+
+workflows:
+  version: 2
+  build_test_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
