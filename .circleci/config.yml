@@ -68,7 +68,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - 4d:6b:7b:16:15:af:36:29:d0:20:3d:91:92:73:10:5e
+            - 09:22:83:23:e7:ae:55:cf:3f:89:f1:7b:6a:79:61:91
       - run: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "/var/www/nayami2/deploy-me.sh"
 
 workflows:
