@@ -7,3 +7,4 @@ WORKDIR /nayami2
 COPY . /nayami2
 RUN bundle config --local set path 'vendor/bundle' \
   && bundle install
+  && bundle exec rails assets:precompile RAILS_ENV=production
