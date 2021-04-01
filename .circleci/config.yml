@@ -69,7 +69,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - b4:08:11:f0:cc:94:af:9c:32:e8:ff:b4:3e:f8:5f:d4
-      - run: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "/home/ec2-user/nayami2/deploy-me.sh"
+      - run: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "/var/www/nayami2/deploy-me.sh"
 
 workflows:
   version: 2
