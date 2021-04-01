@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd /home/ec2-user/nayami2/ && git pull
+cd /var/www/nayami2/ && git pull
