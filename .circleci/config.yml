@@ -72,9 +72,9 @@ jobs:
       # - run: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "/var/www/nayami2/deploy-me.sh"
 
       - deploy:
-        name: Capistrano deploy
-        command:
-          bundle exec cap production deploy
+          name: Capistrano deploy
+          command: |
+            bundle exec cap production deploy
 
 workflows:
   version: 2
