@@ -75,7 +75,7 @@ jobs:
       - run:
           name: Bundle install
           command: |
-            bundle install
+            bundle check || bundle install
       - deploy:
           name: Capistrano deploy
           command: |
