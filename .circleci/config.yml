@@ -74,6 +74,8 @@ jobs:
       - deploy:
           name: Capistrano deploy
           command: |
+            pwd
+            ls -al
             bundle exec cap production deploy
 
 workflows:
