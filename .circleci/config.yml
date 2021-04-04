@@ -70,10 +70,6 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - 37:c0:d0:8a:6c:c9:4d:88:b7:a7:cb:50:cd:ff:db:c2
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            - v1-dependencies-
       - run:
           name: install dependencies
           command: |
