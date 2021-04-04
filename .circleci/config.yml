@@ -1,22 +1,19 @@
 version: 2.1
-orbs:
-  ruby: circleci/ruby@0.1.2
 
-jobs:
-  build:
+executors:
+  default:
+    working_directory: ~/repo
     docker:
       - image: circleci/ruby:3.0.0
         environment:
           - BUNDLER_VERSION: 2.2.11
-          - RAILS_ENV: 'test'
       - image: circleci/mysql:8.0
         environment:
           - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
           - MYSQL_ROOT_HOST: '%'
-        command: --default-authentication-plugin=mysql_native_password
 
-    working_directory: ~/repo
-
+commands:
+  setup:
     steps:
       - checkout
       - restore_cache:
@@ -32,16 +29,22 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+jobs:
+  test:
+    executor: default
+    environment:
+      RAILS_ENV: test
+    steps:
+      - setup
       - run: mv config/database.yml.ci config/database.yml 
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
-      
-      # rubocop
+
       - run:
           name: Rubocop
-          command: bundle exec rubocop -a
+          command: bundle exec rubocop
 
-      # rspec
       - run:
           name: run tests
           command: |
@@ -55,29 +58,30 @@ jobs:
               --format progress \
               $TEST_FILES
 
-      # collect reports
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
 
+  deploy:
+    executor: default
+    steps:
+      - setup
       - add_ssh_keys:
           fingerprints:
             - 37:c0:d0:8a:6c:c9:4d:88:b7:a7:cb:50:cd:ff:db:c2
       - deploy:
           name: Capistrano deploy
-          command: |
-            bundle exec cap production deploy
+          command: bundle exec cap production deploy
 
 workflows:
-  version: 2
-  build_test_and_deploy:
+  test_and_deploy:
     jobs:
-      - build
+      - test
       - deploy:
           requires:
-            - build
+            - test
           filters:
             branches:
               only: master
