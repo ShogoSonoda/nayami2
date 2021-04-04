@@ -71,7 +71,11 @@ jobs:
           fingerprints:
             - 37:c0:d0:8a:6c:c9:4d:88:b7:a7:cb:50:cd:ff:db:c2
       # - run: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "/var/www/nayami2/deploy-me.sh"
-
+      
+      - run:
+          name: Bundle install
+          command: |
+            bundle install
       - deploy:
           name: Capistrano deploy
           command: |
