@@ -1,5 +1,24 @@
 version: '3'
+
 services:
+  app:
+    build:
+      context: .
+    command: /bin/sh -c "rm -f /nayami2/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes: 
+      - .:/nayami2
+      - public-data:/nayami2/public
+      - tmp-data:/nayami2/tmp
+      - log-data:/nayami2/log
+    depends_on: 
+      - db
+    ports:
+      - "3000:3000"
+    tty: true
+    stdin_open: true
+  
+  
+      
   db:
     image: mysql:8.0
     environment:
@@ -12,17 +31,20 @@ services:
     ports:
       - "3306:3306"
     command: --default-authentication-plugin=mysql_native_password
-    
+
   web:
     build:
-      context: .
-      dockerfile: Dockerfile
-    command: /bin/sh -c "rm -f /nayami2/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    tty: true
-    stdin_open: true
-    depends_on:
-      - db
-    ports:
-      - "3000:3000"
+      context: containers/nginx
     volumes:
-      - .:/nayami2
+      - public-data:/nayami2/public
+      - tmp-data:/nayami2/tmp
+    ports:
+      - 80:80
+    depends_on:
+      - app
+
+volumes:
+  public-data:
+  tmp-data:
+  log-data:
+  db-data:
