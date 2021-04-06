@@ -12,7 +12,4 @@
   <% end %>
   <%== notification_form(notification) %>
   <span>(<%= time_ago_in_words(notification.created_at) %> ago)</span>
-  <% if !@comment.nil? %>
-    <p><%= @comment %></p>
-  <% end %>
 </div>
