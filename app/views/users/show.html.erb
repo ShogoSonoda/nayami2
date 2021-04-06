@@ -14,7 +14,7 @@
           <div class="inline text-lg"><%= @user.position.name if @user.position %></div>
         </div>
       </div>
-      <div class="text-center">
+      <div class="text-center w-32">
         <div class="block flex flex-col">
           <% if user_signed_in? && current_user == @user %>
             <%= link_to "プロフィール編集", edit_user_registration_path(current_user.id), class: "inline-block border py-1 px-2 rounded-lg" %>
