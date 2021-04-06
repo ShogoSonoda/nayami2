@@ -14,30 +14,42 @@
           <div class="inline text-lg"><%= @user.position.name if @user.position %></div>
         </div>
       </div>
-      <div class="text-center w-32">
+      <div class="text-center">
         <div class="block flex flex-col">
           <% if user_signed_in? && current_user == @user %>
-            <%= link_to "プロフィール編集", edit_user_registration_path(current_user.id), class: "inline-block border py-1 px-2 rounded-lg" %>
-            <%= link_to "DM一覧", rooms_path, class: "inline-block mt-2 text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded" %>
+            <%= link_to edit_user_registration_path(current_user.id) do %>
+              <div class="inline-block border py-1 px-2 rounded-lg">プロフィール編集</div>
+            <% end %>
+            <%= link_to rooms_path do %>
+              <div class="inline-block mt-2 text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded">DM一覧</div>
+            <% end %>
           <% end %>
 
           <% if user_signed_in? && current_user != @user %>
             <% if @user.followed_by?(current_user) %>
-              <%= link_to "フォロー中", user_relationships_path(@user.id), method: :delete, class: "inline-block text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded" %>
+              <%= link_to user_relationships_path(@user.id), method: :delete do %>
+                <div class="text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded text-center">フォロー中</div>
+              <% end %>
             <% else %>
-              <%= link_to "フォローする", user_relationships_path(@user.id), method: :post,class: "inline-block text-green-500 bg-white py-1 px-2 hover:bg-white rounded border" %>
+              <%= link_to user_relationships_path(@user.id), method: :post do %>
+                <div class="text-green-500 bg-white py-1 px-2 hover:bg-white rounded border text-center">フォローする</div>
+              <% end %>
             <% end %>
           <% end %>
 
           <% if user_signed_in? && current_user != @user %>
             <% if @isRoom == true %>
-              <%= link_to "DM", room_path(@roomId), class: "inline-block mt-2 text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded" %>
+              <%= link_to room_path(@roomId) do %>
+                <div class="inline-block mt-2 text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded">DM</div>
+              <% end %>
             <% else %>
               <%= form_with model: @room do |f| %>
                 <%= fields_for @entry do |e| %>
                   <%= e.hidden_field :user_id, value: @user.id %>
                 <% end %>
-                  <%= f.submit "DM", class: "inline-block mt-2 text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded" %>
+                  <%= f.submit do %>
+                    <div class="inline-block mt-2 text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded">DM</div>
+                  <% end %>
               <% end %>
             <% end %>
           <% end %>
@@ -52,8 +64,12 @@
       <% end %>
     </div>
     <div class="block ml-24">
-      <div class="inline mr-2">フォロー <%= link_to @user.followings.length, follows_user_path(@user.id) %></div>
-      <div class="inline">フォロワー <%= link_to @user.followers.length, followers_user_path(@user.id) %></div>
+      <%= link_to follows_user_path(@user.id) do %>
+        <div class="inline mr-2">フォロー <%= @user.followings.length %></div>
+      <% end %>
+      <%= link_to followers_user_path(@user.id) do %>
+        <div class="inline">フォロワー <%= @user.followers.length %></div>
+      <% end %>
     </div>
   </div>
 </div>
