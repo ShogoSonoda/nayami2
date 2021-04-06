@@ -53,7 +53,7 @@
       <% end %>
     </div>
     <div class="block mb-5">
-      <p><%= @post.text %></p>
+      <p><%= safe_join(@post.text.split("\n"),tag(:br)) %></p>
     </div>
     <% if user_signed_in? %>
       <div class="block my-24 text-center text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg" >
@@ -80,7 +80,9 @@
               <%= link_to "削除", post_comment_path(@post, comment), method: :delete if comment.user == current_user %>
             </div>
           </div>
-          <div class="block py-2"><%= comment.text %></div>
+          <div class="block py-2">
+            <p><%= safe_join(comment.text.split("\n"),tag(:br)) %></p>
+          </div>
         </div>
       <% end %>
     <% else %>
