@@ -56,10 +56,10 @@
       <p><%= safe_join(@post.text.split("\n"),tag(:br)) %></p>
     </div>
     <% if user_signed_in? %>
-      <div class="block my-24 text-center text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg" >
-        <div class="inline-block">
-          <%= link_to "コメントする", new_post_comment_path(params[:id]) %>
-        </div>
+      <div class="" >
+        <%= link_to new_post_comment_path(params[:id]) do %>
+          <div class="my-3 text-center text-white bg-green-500 border-0 py-1 focus:outline-none hover:bg-green-600 rounded text-lg">コメントする</div>
+        <% end %>
       </div>
       <% @comments.each do |comment| %>
         <div class="p-2 mb-5">
