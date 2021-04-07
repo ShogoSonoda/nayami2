@@ -1,0 +1,5 @@
+<%= form_with(model: [user, current_user.active_relationships.find_by(follower_id: user.id)], html: { method: :delete }, remote: true) do |f| %>
+  <%= f.button :type => "submit" do %>
+    <div class="text-white bg-blue-400 hover:bg-blue-500 rounded w-32 py-1 px-2 text-center">フォロー中</div>
+  <% end %>
+<% end %>

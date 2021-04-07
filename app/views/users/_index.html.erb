@@ -20,17 +20,7 @@
           </div>
         </div>
         <div class="flex items-center">
-          <% if user_signed_in? && current_user != user %>
-            <% if user.followed_by?(current_user) %>
-              <%= link_to user_relationships_path(user.id), method: :delete do %>
-                <div class="text-white bg-blue-400 hover:bg-blue-500 rounded w-32 py-1 px-2 text-center">フォロー中</div>
-              <% end %>
-            <% else %>
-              <%= link_to user_relationships_path(user.id), method: :post do %>
-                <div class="text-blue-500 bg-white hover:bg-blue-300 rounded border w-32 py-1 px-2 text-center">フォローする</div>
-              <% end %>
-            <% end %>
-          <% end %>
+          <%= render partial: "follow_form", locals: { user: user } %>
         </div>
       </div>
     <% end %>

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:show, :search, :follows, :followers]
-  before_action :set_user, only: [:show, :follows, :followers]
+  before_action :set_user, only: [:show, :followings, :followers]
 
   def show
     @posts = @user.posts
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def follows
+  def followings
     @users = @user.followings
   end
 

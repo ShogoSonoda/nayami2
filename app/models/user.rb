@@ -27,8 +27,16 @@ class User < ApplicationRecord
   validates :nickname, presence: true
   validates :profile, length: { maximum: 200 }
 
-  def followed_by?(user)
-    passive_relationships.find_by(following_id: user.id).present?
+  def following?(user)
+    active_relationships.find_by(follower_id: user.id)
+  end
+
+  def follow(user)
+    active_relationships.create!(follower_id: user.id)
+  end
+
+  def unfollow(user)
+    active_relationships.find_by(follower_id: user.id).destroy
   end
 
   def create_notification_follow!(current_user)
