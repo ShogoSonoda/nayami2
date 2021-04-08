@@ -1,0 +1,13 @@
+<div id="empathies_buttons_<%= post.id %>">
+  <% if user_signed_in? %>
+    <% if post.empathy_by?(current_user) %>
+      <%= link_to post_empathies_path(post.id), method: :delete, remote: true do %>
+        <i class="fas fa-heart mr-2"></i><%= post.empathies.count %>
+      <% end %>
+    <% else %>
+      <%= link_to post_empathies_path(post.id), method: :post, remote: true do %>
+        <i class="far fa-heart mr-2"></i><%= post.empathies.count %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
