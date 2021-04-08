@@ -19,9 +19,12 @@ class MessagesController < ApplicationController
           notification.checked = true
         end
         notification.save if notification.valid?
+        respond_to do |format|
+          format.html { redirect_back(fallback_location: root_path) }
+          format.js
+        end
       end
     end
-    redirect_back(fallback_location: root_path)
   end
 
   private
