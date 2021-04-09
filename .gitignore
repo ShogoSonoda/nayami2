@@ -37,4 +37,4 @@ yarn-debug.log*
 
 /public/uploads
 /.env
-/db/mysql_data
+/db/mysql_data/*
