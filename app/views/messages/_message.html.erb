@@ -1,0 +1,21 @@
+<div id="message_<%= message.id %>" class="message">
+  <% if current_user == message.user %>
+    <div class="block mb-3 text-right">
+      <div class="block">
+        <%= link_to "#{current_user.nickname}", user_path(current_user.id) %>
+      </div>
+      <div class="inline-block border rounded-full px-2 py-1 bg-yellow-300">
+        <%= message.text %>
+      </div>
+    </div>
+  <% else %>
+    <div class="block mb-3">
+      <div class="block">
+        <%= link_to "#{message.user.nickname}", user_path(message.user.id) %>
+      </div>
+      <div class="inline-block border rounded-full px-2 py-1">
+        <%= message.text %>
+      </div>
+    </div>
+  <% end %>
+</div>

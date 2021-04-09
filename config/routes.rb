@@ -5,9 +5,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
   
   resources :users ,only: [:show] do
-    resource :relationships, only: [:create, :destroy]
-    get :follows, on: :member
-    get :followers, on: :member
+    member do
+      get :followings, :followers
+    end
+    resources :relationships, only: [:create, :destroy]
     get :search, on: :collection
   end
 

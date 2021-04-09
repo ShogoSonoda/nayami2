@@ -24,26 +24,12 @@
         </div>
       <% else %>
         <div class="inline-block">
-          <% if @post.user.followed_by?(current_user) %>
-            <%= link_to "フォロー中", user_relationships_path(@post.user.id), method: :delete %>
-          <% else %>
-            <%= link_to "フォローする", user_relationships_path(@post.user.id), method: :post %>
-          <% end %>
+          <%= render partial: "users/follow_form", locals: { user: @post.user } %>
         </div>
       <% end %>
     </div>
     <div class="block mb-2">
-      <% if user_signed_in? %>
-        <% if @post.empathy_by?(current_user) %>
-          <%= link_to post_empathies_path(@post.id), method: :delete do %>
-            <i class="fas fa-heart mr-2"></i><%= @post.empathies.count %>
-          <% end %>
-        <% else %>
-          <%= link_to post_empathies_path(@post.id), method: :create do %>
-            <i class="far fa-heart mr-2"></i><%= @post.empathies.count %>
-          <% end %>
-        <% end %>
-      <% end %>
+      <%= render partial: "empathies/empathy", locals: { post: @post } %>
     </div>
     <div class="block mb-2">
       <% unless @tag_list.blank? %>
@@ -53,13 +39,13 @@
       <% end %>
     </div>
     <div class="block mb-5">
-      <p><%= @post.text %></p>
+      <p><%= safe_join(@post.text.split("\n"),tag(:br)) %></p>
     </div>
     <% if user_signed_in? %>
-      <div class="block my-24 text-center text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg" >
-        <div class="inline-block">
-          <%= link_to "コメントする", new_post_comment_path(params[:id]) %>
-        </div>
+      <div class="" >
+        <%= link_to new_post_comment_path(params[:id]) do %>
+          <div class="my-3 text-center text-white bg-green-500 border-0 py-1 focus:outline-none hover:bg-green-600 rounded text-lg">コメントする</div>
+        <% end %>
       </div>
       <% @comments.each do |comment| %>
         <div class="p-2 mb-5">
@@ -80,7 +66,9 @@
               <%= link_to "削除", post_comment_path(@post, comment), method: :delete if comment.user == current_user %>
             </div>
           </div>
-          <div class="block py-2"><%= comment.text %></div>
+          <div class="block py-2">
+            <p><%= safe_join(comment.text.split("\n"),tag(:br)) %></p>
+          </div>
         </div>
       <% end %>
     <% else %>
