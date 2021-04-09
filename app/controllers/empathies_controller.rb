@@ -3,7 +3,7 @@ class EmpathiesController < ApplicationController
   before_action :set_post, only: [:create, :destroy]
 
   def create
-    empathy = current_user.empathies.create(post_id: params[:post_id])
+    current_user.empathies.create(post_id: params[:post_id])
     respond_to do |format|
       format.html { redirect_back(fallback_location: root_path) }
       format.js
