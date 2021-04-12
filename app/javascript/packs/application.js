@@ -9,6 +9,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import '../css/tailwindcss.css';
 import "jquery"
+import "../packs/empathies"
 
 Rails.start()
 Turbolinks.start()
