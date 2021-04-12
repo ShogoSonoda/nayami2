@@ -1,4 +1,9 @@
-<% empathy_button_color = post.empathy_by?(current_user) ? Empathy::EMPATHY_COLOR : Empathy::UNEMPATHY_COLOR %>
-<input type='hidden' id='empathy_id' value="#{post.empathy_by(current_user).id}">
-<input type='hidden' id='post_id' value="#{post.id}">
-<div id="js-empathy-button" class="inline-block border border-red-500 py-1 px-2 rounded-lg <%= empathy_button_color %>">共感</div>
+<% if user_signed_in? %>
+  <% empathy_button_color = post.empathy_by?(current_user) ? Empathy::EMPATHY_COLOR : Empathy::UNEMPATHY_COLOR %>
+  <% if post.empathy_by?(current_user) %>
+    <input type='hidden' id='empathy_id' value="<%= post.empathy_by(current_user).id %>">
+  <% end %>
+  <input type='hidden' id='post_id' value="<%= post.id %>">
+  <button id="js-empathy-button" class="<%= empathy_button_color %>">共感</button>
+<% end %>
+

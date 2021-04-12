@@ -25,8 +25,12 @@ class Post < ApplicationRecord
     end
   end
 
+  def empathy_by(user)
+    empathies.where(empathies: { user_id: user }).last
+  end
+
   def empathy_by?(user)
-    empathies.where(user_id: user.id).exists?
+    empathy_by(user_id).present?
   end
 
   def create_notification_empathy!(current_user)
