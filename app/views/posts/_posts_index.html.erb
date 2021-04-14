@@ -18,7 +18,9 @@
               <p class="leading-relaxed text-base"><%= post.text.truncate(50) %></p>
             <% end %>
           </div>
-          <%= render partial: "empathies/empathy", locals: { post: post } %>
+          <div>
+            <%= render partial: "empathies/empathy", locals: { post: post } %>
+          </div>
         </div>
       </div>
     <% end %>

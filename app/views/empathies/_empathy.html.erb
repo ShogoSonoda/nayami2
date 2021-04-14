@@ -1,13 +1,8 @@
-<div id="empathies_buttons_<%= post.id %>">
-  <% if user_signed_in? %>
-    <% if post.empathy_by?(current_user) %>
-      <%= link_to post_empathies_path(post.id), method: :delete, remote: true do %>
-        <i class="fas fa-heart mr-2"></i><%= post.empathies.count %>
-      <% end %>
-    <% else %>
-      <%= link_to post_empathies_path(post.id), method: :post, remote: true do %>
-        <i class="far fa-heart mr-2"></i><%= post.empathies.count %>
-      <% end %>
-    <% end %>
+<% if user_signed_in? %>
+  <% empathy_button_color = post.empathy_by?(current_user) ? Empathy::EMPATHY_COLOR : Empathy::UNEMPATHY_COLOR %>
+  <% if post.empathy_by?(current_user) %>
+    <button class="js-empathy-button <%= empathy_button_color %>" id="<%= post.id %>" value="<%= post.empathy_by(current_user).id %>">共感済み</button>
+  <% else %>
+    <button class="js-empathy-button <%= empathy_button_color %>" id="<%= post.id %>" value=" ">共感する</button>
   <% end %>
-</div>
+<% end %>
