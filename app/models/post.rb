@@ -30,7 +30,7 @@ class Post < ApplicationRecord
   end
 
   def empathy_by?(user)
-    empathy_by(user_id).present?
+    empathy_by(user).present?
   end
 
   def create_notification_empathy!(current_user)
