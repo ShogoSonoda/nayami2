@@ -35,6 +35,5 @@
 yarn-debug.log*
 .yarn-integrity
 
-/public/uploads
-/.env
+/public/uploads/*
 /db/mysql_data/*

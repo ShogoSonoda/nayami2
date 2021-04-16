@@ -4,8 +4,8 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_DATABASE: docker_development
+      MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_USER: root
       MYSQL_PASSWORD: password
     volumes:
       - ./db/mysql_data:/var/lib/mysql
@@ -26,17 +26,3 @@ services:
       - "3000:3000"
     volumes:
       - .:/nayami2
-    environment: 
-      - WEBPACKER_DEV_SERVER_HOST=webpacker
-
-  webpacker:
-    build: .
-    environment:
-      - NODE_ENV=development
-      - RAILS_ENV=development
-      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
-    command: ./bin/webpack-dev-server
-    volumes:
-      - .:/nayami2
-    ports:
-      - '3035:3035'

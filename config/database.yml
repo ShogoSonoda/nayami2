@@ -19,10 +19,9 @@ default: &default
 
 development:
   <<: *default
-  database: nayami2_development
+  database: docker_development
   username: root
   password: password
-  database: docker_development
   host: db
 
 # Warning: The database defined as "test" will be erased and
@@ -54,9 +53,9 @@ test:
 #
 
 # RDS
-production:
-  <<: *default
-  database: nayami2_production
-  username: root
-  password: <%= Rails.application.credentials.db[:password] %>
-  host: <%= Rails.application.credentials.db[:hostname] %>
+# production:
+#   <<: *default
+#   database: nayami2_production
+#   username: root
+#   password: <%= Rails.application.credentials.db[:password] %>
+#   host: <%= Rails.application.credentials.db[:hostname] %>
