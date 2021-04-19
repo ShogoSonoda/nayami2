@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     member do
       get :followings, :followers
     end
-    resources :relationships, only: [:create, :destroy]
+    # resources :relationships, only: [:create, :destroy]
     get :search, on: :collection
   end
 
@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   namespace :api, format: :json do
     namespace :v1 do
       resources :empathies, only: [:create, :destroy]
+      resources :relationships, only: [:create, :destroy]
     end
   end
 end
