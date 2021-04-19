@@ -42,7 +42,6 @@ document.addEventListener('turbolinks:load', () => {
         sendRequest(empathyEndpoint, 'POST', { post_id: postId })
           .then((data) => {
             button.value = data.empathy_id
-            console.log(button.value);
           });
         }
         
@@ -51,7 +50,6 @@ document.addEventListener('turbolinks:load', () => {
           sendRequest(deleteEmpathyEndpoint, 'DELETE', { id: empathyId })
           .then(() => {
             button.value = '';
-            console.log(button.value);
           });
       }
 
