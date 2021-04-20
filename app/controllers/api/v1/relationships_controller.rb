@@ -1,7 +1,6 @@
 module Api
   module V1
     class RelationshipsController < ApplicationController
-
       def create
         followed_user = User.find(params[:followed_id])
         relationship = current_user.follow(followed_user)
@@ -15,4 +14,3 @@ module Api
     end
   end
 end
-　
