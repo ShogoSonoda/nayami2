@@ -41,8 +41,6 @@ document.addEventListener('turbolinks:load', () => {
         sendRequest(followEndpoint, 'POST', { followed_id: followedId })
         .then((data) => {
           button.value = data.relationship_id;
-          console.log(button.value);
-          
         });
       }
 
