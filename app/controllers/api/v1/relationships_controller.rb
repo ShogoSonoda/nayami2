@@ -4,6 +4,7 @@ module Api
       def create
         followed_user = User.find(params[:followed_id])
         relationship = current_user.follow(followed_user)
+        followed_user.create_notification_follow!(current_user)
         render json: { relationship_id: relationship.id }
       end
 
