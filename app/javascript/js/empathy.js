@@ -31,7 +31,6 @@ document.addEventListener('turbolinks:load', () => {
     }
   }
   
-  
   const empathyButtons = document.getElementsByClassName('js-empathy-button');
   
   for (let i = 0; i < empathyButtons.length; i++) {
@@ -40,17 +39,17 @@ document.addEventListener('turbolinks:load', () => {
 
       const createEmpathy = (postId, button) => {
         sendRequest(empathyEndpoint, 'POST', { post_id: postId })
-          .then((data) => {
-            button.value = data.empathy_id
-          });
-        }
+        .then((data) => {
+          button.value = data.empathy_id;
+        });
+      }
         
-        const deleteEmpathy = (empathyId, button) => {
-          const deleteEmpathyEndpoint = empathyEndpoint + '/' + `${empathyId}`;
-          sendRequest(deleteEmpathyEndpoint, 'DELETE', { id: empathyId })
-          .then(() => {
-            button.value = '';
-          });
+      const deleteEmpathy = (empathyId, button) => {
+        const deleteEmpathyEndpoint = empathyEndpoint + '/' + `${empathyId}`;
+        sendRequest(deleteEmpathyEndpoint, 'DELETE', { id: empathyId })
+        .then(() => {
+          button.value = '';
+        });
       }
 
       if (!!button) {
