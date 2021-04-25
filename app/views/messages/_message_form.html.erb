@@ -1,6 +1,5 @@
-<form>
-  <input class="border py-1 px-2 w-5/6" type="text" name="text" id="text">
-  <input value="<%= room.id %>" type="hidden" name="room_id" id="room_id">
-  <input value="<%= current_user.id %>" type="hidden" name="user_id" id="user_id">
-  <input type="submit" name="commit" value="送信" class="text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded"> 
+<form id="message_form">
+  <input class="border py-1 px-2 w-5/6" type="text" id="message">
+  <input value="<%= room.id %>" type="hidden" id="room_id">
+  <input type="submit" value="送信" id="message_btn" class="text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded"> 
 </form>
