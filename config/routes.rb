@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     get :tag_posts, on: :collection
   end
 
-  resources :messages, only: [:create]
+  # resources :messages, only: [:create]
 
   resources :rooms, only: [:create, :show, :index]
 
@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :empathies, only: [:create, :destroy]
       resources :relationships, only: [:create, :destroy]
+      resources :messages, only: [:create]
     end
   end
 end

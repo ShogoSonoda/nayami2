@@ -11,6 +11,7 @@ import '../css/tailwindcss.css';
 import "jquery"
 import "../js/empathy"
 import "../js/follow"
+import "../js/message"
 
 Rails.start()
 Turbolinks.start()

@@ -1,5 +1,5 @@
-<%= form_with(model: message, local: false) do |f| %>
-  <%= f.text_field :text, class: "border py-1 px-2 w-5/6" %>
-  <%= f.hidden_field :room_id, value: room.id %>
-  <%= f.submit "送信", class: "text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded" %>
-<% end %>
+<form id="message_form">
+  <input class="border py-1 px-2 w-5/6" type="text" id="message">
+  <input value="<%= room.id %>" type="hidden" id="room_id">
+  <input type="submit" value="送信" id="message_btn" class="text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded"> 
+</form>
