@@ -1,0 +1,9 @@
+<div class="text-gray-700">
+  <% tag_list = post.tags.pluck(:name) %>
+  <% unless tag_list.blank? %>
+  <i class="fas fa-tags"></i>
+    <% tag_list.each do |tag| %>
+      <a><%= tag %></a>
+    <% end %>
+  <% end %>
+</div>
