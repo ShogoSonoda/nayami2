@@ -1,4 +1,4 @@
-<header class="text-gray-600 body-font">
+<header>
   <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
     <%= link_to "HOME", root_path, class: "ml-3 text-xl" %>
     <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
@@ -20,16 +20,5 @@
         <%= link_to "ログイン", new_user_session_path, class: "mr-5 hover:text-gray-900" %>
       <% end %>
     </nav>
-  </div>
-  <div class="container mx-auto flex justify-around mt-5">
-    <%= link_to posts_path do %>
-      <div class="inline-block border rounded-full text-white bg-green-500 py-1 px-2 hover:bg-green-600">新しい悩み</div>
-    <% end %>
-    <%= link_to sort_empathy_posts_path do %>
-      <div class="inline-block border rounded-full text-white bg-green-500 py-1 px-2 hover:bg-green-600">共感されている悩み</div>
-    <% end %>
-    <%= link_to tag_index_posts_path do %>
-      <div class="inline-block border rounded-full text-white bg-green-500 py-1 px-2 hover:bg-green-600">タグで探す</div>
-    <% end %>
   </div>
 </header>
