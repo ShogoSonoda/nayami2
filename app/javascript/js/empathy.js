@@ -1,6 +1,6 @@
 document.addEventListener('turbolinks:load', () => {
   const empathyColor = "js-empathy-button inline-block border border-red-500 py-1 px-2 rounded-lg text-white bg-red-500";
-  const unempathyColor = "js-empathy-button inline-block border border-red-500 py-1 px-2 rounded-lg text-red-500 bg-white";
+  const unempathyColor = "js-empathy-button inline-block border border-gray-700 py-1 px-2 rounded-lg text-gray-700 bg-white";
   const empathyEndpoint = '/api/v1/empathies';
   const getCsrfToken = () => {
     const metas = document.getElementsByTagName('meta');
