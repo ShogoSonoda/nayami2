@@ -1,16 +1,15 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :destroy]
+  before_action :authenticate_user!, only: [:create, :destroy]
 
   def create
     comment = Comment.new(comment_params)
     post = comment.post
     if comment.save
       post.create_notification_comment!(current_user, comment.id)
-      redirect_back(fallback_location: root_path) 
     else
       # エラー文を表示させる
-      redirect_back(fallback_location: root_path)
     end
+    redirect_back(fallback_location: root_path) 
   end
 
   def destroy
