@@ -1,27 +1,27 @@
-<div class="container mx-auto p-10">
-  <div class="lg:w-1/2 md:w-2/3 mx-auto">
-    <% @anotherEntries.each do |e| %>
-      <div class="block mb-4">
-        <div class="block">
-          <%= link_to user_path(e.user.id) do %>
-            <div class="inline-block mr-2">
+<div class="container mx-auto">
+  <div>
+    <% if @currentEntries.exists? %>
+      <% @anotherEntries.each do |e| %>
+        <div class="flex justify-start border-b-2 mb-4">
+          <div class="mr-2">
+            <%= link_to user_path(e.user.id) do %>
               <% if e.user.avatar.url %>
                 <%= image_tag e.user.avatar.url, class: "w-10 h-10 rounded-full inline-flex items-center justify-center" %>
               <% else %>
                 <%= image_tag 'default.png', class: "w-10 h-10 rounded-full inline-flex items-center justify-center" %>
               <% end %>
-            </div>
-            <div class="inline-block">
-              <%= e.user.nickname %>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
+          <div>
+            <p><%= e.user.nickname %></p>
+            <p>
+              <%= link_to "#{Message.find_by(id: e.room.message_ids.last).text}", room_path(e.room.id) %>
+            </p>
+          </div>
         </div>
-        <div class="block pl-12">
-          <%= link_to room_path(e.room.id) do %>
-            <%= Message.find_by(id: e.room.message_ids.last).text %>
-          <% end %>
-        </div>
-      </div>
+      <% end %>
+    <% else %>
+      <p>DMはまだありません</p>
     <% end %>
   </div>
 </div>
