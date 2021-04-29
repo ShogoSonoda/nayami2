@@ -1,14 +1,16 @@
 <header>
-  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-    <%= link_to "HOME", root_path, class: "ml-3 text-xl" %>
-    <div class="ml-2">
-      <%= render partial: "posts/search_form" %>
+  <div class="container mx-auto flex items-center justify-between py-2">
+    <div class="flex items-center">
+      <%= link_to "HOME", root_path, class: "ml-3 text-xl" %>
+      <div class="ml-2">
+        <%= render partial: "posts/search_form" %>
+      </div>
     </div>
-    <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+    <div class="">
       <% if user_signed_in? %>
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-5 hover:text-gray-900" %>
-        <%= link_to "#{current_user.nickname}", user_path(current_user.id), class: "mr-5 hover:text-gray-900" %>
-        <%= link_to "新規投稿", new_post_path, class: "mr-5 hover:text-gray-900" %>
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-5" %>
+        <%= link_to "#{current_user.nickname}", user_path(current_user.id), class: "mr-5" %>
+        <%= link_to "新規投稿", new_post_path, class: "mr-5 bg-yellow-500 p-2 text-white cursor-pointer hover:bg-yellow-700" %>
         <%= link_to notifications_path do %>
           <% if unchecked_notifications.any? %>
             <i class="fas fa-bell"></i><i class="fas fa-exclamation ml-1"></i>
@@ -17,9 +19,9 @@
           <% end %>
         <% end %>
       <% else %>
-        <%= link_to "新規登録", new_user_registration_path, class: "mr-5 hover:text-gray-900" %>
-        <%= link_to "ログイン", new_user_session_path, class: "mr-5 hover:text-gray-900" %>
+        <%= link_to "新規登録", new_user_registration_path, class: "mr-5" %>
+        <%= link_to "ログイン", new_user_session_path, class: "mr-5" %>
       <% end %>
-    </nav>
+    </div>
   </div>
 </header>
