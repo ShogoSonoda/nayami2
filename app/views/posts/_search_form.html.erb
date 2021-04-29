@@ -1,0 +1,8 @@
+<div class="inline-block border-2 p-1 bg-white">
+  <%= form_with url: search_result_posts_path, method: :get, local: true do |f| %>
+    <%= button_tag :type => "submit", class: "p-1" do %>
+      <i class="fas fa-search mr-1"></i>
+    <% end %>
+    <%= f.text_field :text, class: "py-1 px-2" %>
+  <% end %>
+</div>

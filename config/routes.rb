@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   end
 
   resources :posts do
-    get :search, on: :collection
+    get :search_result, on: :collection
     get :sort_empathy, on: :collection
     get :tag_posts, on: :collection
   end
