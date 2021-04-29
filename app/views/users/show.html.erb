@@ -1,17 +1,28 @@
-<div class="container mx-auto p-10">
-  <div class="lg:w-1/2 md:w-2/3 mx-auto">
-    <div class="block flex justify-between">
+<div class="container mx-auto">
+  <div class="mx-auto p-4">
+    <div class="flex justify-between">
       <div class="flex items-start">
-        <div class="inline-block">
+        <div>
           <% if @user.avatar.url %>
             <%= image_tag @user.avatar.url, class: "w-20 h-20 rounded-full inline-flex items-center justify-center" %>
           <% else %>
             <%= image_tag 'default.png', class: "w-20 h-20 rounded-full inline-flex items-center justify-center" %>
           <% end %>
         </div>
-        <div class="flex flex-col ml-4">
-          <div class="inline text-2xl"><%= @user.nickname %></div>
-          <div class="inline text-lg"><%= @user.position.name if @user.position %></div>
+        <div class="ml-2">
+          <div>
+            <p class="text-2xl"><%= @user.nickname %></p>
+            <div class="mt-2">
+              <%= render partial: "rooms/room_button", locals: { user: @user, isRoom: @isRoom, roomId: @roomId, room: @room, entry: @entry } %>
+            </div>
+          </div>
+          <div class="mt-1">
+            <%= link_to "フォロー #{@user.followings.length}", followings_user_path(@user.id), class: "mr-2" %>
+            <%= link_to "フォロワー #{@user.followers.length}", followers_user_path(@user.id) %>
+            <% if @user.profile? %>
+              <p class="text-base mt-1"><%= @user.profile %></p>
+            <% end %>
+          </div>
         </div>
       </div>
       <div class="text-center">
@@ -20,47 +31,18 @@
             <%= link_to edit_user_registration_path(current_user.id) do %>
               <div class="inline-block border py-1 px-2 rounded-lg">プロフィール編集</div>
             <% end %>
-            <%= link_to rooms_path do %>
-              <div class="inline-block mt-2 text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded">DM一覧</div>
-            <% end %>
           <% end %>
 
           <%= render partial: "follow_form", locals: { user: @user } %>
 
-          <% if user_signed_in? && current_user != @user %>
-            <% if @isRoom == true %>
-              <%= link_to room_path(@roomId) do %>
-                <div class="inline-block mt-2 text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded">DM</div>
-              <% end %>
-            <% else %>
-              <%= form_with model: @room do |f| %>
-                <%= fields_for @entry do |e| %>
-                  <%= e.hidden_field :user_id, value: @user.id %>
-                <% end %>
-                  <%= f.button :type => "submit" do %>
-                    <div class="inline-block mt-2 text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded">DM</div>
-                  <% end %>
-              <% end %>
-            <% end %>
-          <% end %>
         </div>
       </div>
     </div>
-    <div class="block ml-24 py-2">
-      <% if @user.profile %>
-        <p class="text-base"><%= @user.profile %></p>
-      <% else %>
-        <p class="text-base">プロフィール文はまだありません。</p>
-      <% end %>
-    </div>
-    <div class="block ml-24">
-      <%= link_to followings_user_path(@user.id) do %>
-        <div class="inline mr-2">フォロー <%= @user.followings.length %></div>
-      <% end %>
-      <%= link_to followers_user_path(@user.id) do %>
-        <div class="inline">フォロワー <%= @user.followers.length %></div>
-      <% end %>
-    </div>
+  </div>
+  <div>
+    <p class="text-xl mb-2 border-b-2 border-black">投稿一覧</p>
+    <% @posts.each do |post| %>
+      <%= render partial: 'posts/post_card', locals: { post: post } %>
+    <% end %>
   </div>
 </div>
-<%= render 'posts/posts_index' %>
