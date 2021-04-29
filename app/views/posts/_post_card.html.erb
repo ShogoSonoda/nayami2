@@ -1,0 +1,30 @@
+<div class="border-b-2 p-4 bg-white">
+  <div>
+    <%= link_to post_path(post.id) do %>
+      <p class="text-lg"><%= post.text.truncate(50) %></p>
+    <% end %>
+  </div>
+  <div class="mt-1">
+    <%= render partial: "tags/tag_list", locals: { post: post } %>
+  </div>
+  <div class="flex justify-between mt-1">
+    <div>
+      <%= link_to user_path(post.user_id) do %>
+        <div class="flex items-center">
+          <% if post.user.avatar.url %>
+            <%= image_tag post.user.avatar.url, class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
+          <% else %>
+            <%= image_tag 'default.png', class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
+          <% end %>
+          <p class="ml-2 text-gray-700">
+            <%= post.user.nickname %>
+            <span class="text-sm">が<%= post.created_at %>に投稿</span>
+          </p>
+        </div>
+      <% end %>
+    </div>
+    <div>
+      <%= render partial: "empathies/empathy", locals: { post: post } %>
+    </div>
+  </div>
+</div>
