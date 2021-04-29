@@ -1,78 +1,71 @@
-<div class="container px-5 py-24 mx-auto">
-  <div class="lg:w-1/2 md:w-2/3 mx-auto">
-    <div class="block flex justify-between mb-2">
-      <%= link_to user_path(@post.user.id) do %>
-        <div class="inline-block">
-          <% if @post.user.avatar.url %>
-            <%= image_tag @post.user.avatar.url, class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
-          <% else %>
-            <%= image_tag 'default.png', class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
-          <% end %>
-        </div>
-        <div class="inline-block">
-          <%= @post.user.nickname %>
-        </div>
-      <% end %>
-      <% if user_signed_in? && current_user == @post.user %>
-        <div class="inline-block">
-          <div class="inline-block">
-            <%= link_to "編集", edit_post_path(@post.id) %>
+<div class="container mx-auto">
+  <div class="bg-white p-4">
+    <div class="flex justify-between items-center">
+      <div>
+        <%= link_to user_path(@post.user_id) do %>
+          <div class="flex items-center">
+            <% if @post.user.avatar.url %>
+              <%= image_tag @post.user.avatar.url, class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
+            <% else %>
+              <%= image_tag 'default.png', class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
+            <% end %>
+            <p class="ml-2 text-gray-700">
+              <%= @post.user.nickname %>
+              <span class="text-sm">が<%= @post.created_at %>に投稿</span>
+            </p>
           </div>
-          <div class="inline-block">
-            <%= link_to "削除", post_path(@post.id), method: :delete %>
-          </div>
-        </div>
-      <% else %>
-        <div class="inline-block">
-          <%= render partial: "users/follow_form", locals: { user: @post.user } %>
-        </div>
-      <% end %>
-    </div>
-    <div class="block mb-2">
-      <%= render partial: "empathies/empathy", locals: { post: @post } %>
-    </div>
-    <div class="block mb-2">
-      <% unless @tag_list.blank? %>
-        <% @tag_list.each do |tag| %>
-          <div class="inline-block border px-2 py-1"><%= tag %></div>
-        <% end %>
-      <% end %>
-    </div>
-    <div class="block mb-5">
-      <p><%= safe_join(@post.text.split("\n"),tag(:br)) %></p>
-    </div>
-    <% if user_signed_in? %>
-      <div class="" >
-        <%= link_to new_post_comment_path(params[:id]) do %>
-          <div class="my-3 text-center text-white bg-green-500 border-0 py-1 focus:outline-none hover:bg-green-600 rounded text-lg">コメントする</div>
         <% end %>
       </div>
+      <div>
+        <% if user_signed_in? && current_user == @post.user %>
+          <%= link_to "編集", edit_post_path(@post.id) %>
+          <%= link_to "削除", post_path(@post.id), method: :delete %>
+        <% end %>
+      </div>
+    </div>
+    <div class="mt-1">
+      <%= render partial: "tags/tag_list", locals: { post: @post } %>
+    </div>
+    <div class="mt-1">
+      <%= render partial: "empathies/empathy", locals: { post: @post } %>
+    </div>
+    <div class="mt-2">
+      <p class="text-lg"><%= safe_join(@post.text.split("\n"),tag(:br)) %></p>
+    </div>
+  </div>
+  <div class="bg-white mt-5 p-4">
+    <p class="text-xl mb-2 border-b-2 border-black">コメント</p>
+    <div>
       <% @comments.each do |comment| %>
-        <div class="p-2 mb-5">
-          <div class="block mb-2 flex justify-between">
-            <%= link_to user_path(comment.user.id) do %>
-              <div class="inline-block">
-                <% if comment.user.avatar.url %>
-                  <%= image_tag comment.user.avatar.url, class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
-                <% else %>
-                  <%= image_tag 'default.png', class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
-                <% end %>
-              </div>
-              <div class="inline-block ml-2">
-                <%= comment.user.nickname %>
-              </div>
-            <% end %>
-            <div class="inline-block">
-              <%= link_to "削除", post_comment_path(@post, comment), method: :delete if comment.user == current_user %>
+        <div class="border-b-2 mb-2">
+          <div class="flex justify-between items-center">
+            <div>
+              <%= link_to user_path(comment.user_id) do %>
+                <div class="flex items-center">
+                  <% if comment.user.avatar.url %>
+                    <%= image_tag comment.user.avatar.url, class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
+                  <% else %>
+                    <%= image_tag 'default.png', class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
+                  <% end %>
+                  <p class="ml-2 text-gray-700">
+                    <%= comment.user.nickname %>
+                    <span class="text-sm">が<%= comment.created_at %>に投稿</span>
+                  </p>
+                </div>
+              <% end %>
+            </div>
+            <div>
+              <%= link_to "削除", comment_path(comment.id), method: :delete if comment.user == current_user %>
             </div>
           </div>
-          <div class="block py-2">
+          <div class="m-2">
             <p><%= safe_join(comment.text.split("\n"),tag(:br)) %></p>
           </div>
         </div>
       <% end %>
-    <% else %>
-      <div class="blodk">コメントするにはログインしてください</div>
-    <% end %>
+    </div>
+    <div>
+      <%= render partial: "comments/comment_form", locals: { post: @post } %>
+    </div>
   </div>
 </div>
