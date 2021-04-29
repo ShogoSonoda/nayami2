@@ -6,8 +6,6 @@ class CommentsController < ApplicationController
     post = comment.post
     if comment.save
       post.create_notification_comment!(current_user, comment.id)
-    else
-      # エラー文を表示させる
     end
     redirect_back(fallback_location: root_path) 
   end
