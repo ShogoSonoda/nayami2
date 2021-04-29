@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   root to: "posts#index"
+
+  get 'tags/index'
   
   devise_for :users, controllers: { registrations: 'users/registrations' }
   
@@ -14,7 +16,6 @@ Rails.application.routes.draw do
   resources :posts do
     get :search, on: :collection
     get :sort_empathy, on: :collection
-    get :tag_index, on: :collection
     get :tag_posts, on: :collection
   end
   

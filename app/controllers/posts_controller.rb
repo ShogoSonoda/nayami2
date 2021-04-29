@@ -63,10 +63,6 @@ class PostsController < ApplicationController
     @posts = Post.find(Empathy.group(:post_id).order(Arel.sql('count(post_id) desc')).pluck(:post_id))
   end
 
-  def tag_index
-    @tags = Tag.all
-  end
-
   def tag_posts
     tag = Tag.find(params[:tag_id])
     @posts = tag.posts.order('created_at DESC')
