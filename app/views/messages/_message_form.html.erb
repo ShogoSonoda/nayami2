@@ -1,5 +1,7 @@
 <form id="message_form">
-  <input class="border py-1 px-2 w-5/6" type="text" id="message">
   <input value="<%= room.id %>" type="hidden" id="room_id">
-  <input type="submit" value="送信" id="message_btn" class="text-white bg-green-500 py-1 px-2 hover:bg-green-600 rounded"> 
+    <input type="text" id="message" class="w-full border-2 px-2 py-1">
+    <div class="text-right mt-1">
+      <input type="submit" value="送信" id="message_btn" class="text-white bg-green-500 px-2 py-1 cursor-pointer"> 
+    </div>
 </form>
