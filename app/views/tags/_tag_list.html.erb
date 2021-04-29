@@ -1,9 +1,9 @@
 <div class="text-gray-700">
-  <% tag_list = post.tags.pluck(:name) %>
+  <% tag_list = post.tags %>
   <% unless tag_list.blank? %>
   <i class="fas fa-tags"></i>
     <% tag_list.each do |tag| %>
-      <a><%= tag %></a>
+      <%= link_to tag.name, tag_posts_posts_path(tag_id: tag.id), class: "border-b-2" %>
     <% end %>
   <% end %>
 </div>
