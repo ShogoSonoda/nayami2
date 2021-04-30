@@ -25,17 +25,13 @@
           </div>
         </div>
       </div>
-      <div class="text-center">
-        <div class="block flex flex-col">
-          <% if user_signed_in? && current_user == @user %>
-            <%= link_to edit_user_registration_path(current_user.id) do %>
-              <div class="inline-block border py-1 px-2 rounded-lg">プロフィール編集</div>
-            <% end %>
-          <% end %>
+      <div>
+        <% if user_signed_in? && current_user == @user %>
+          <%= link_to "編集", edit_user_registration_path(current_user.id) %>
+        <% end %>
 
-          <%= render partial: "follow_form", locals: { user: @user } %>
+        <%= render partial: "follow_form", locals: { user: @user } %>
 
-        </div>
       </div>
     </div>
   </div>
