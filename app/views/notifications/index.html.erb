@@ -1,10 +1,6 @@
-<div class="container p-10 mx-auto">
-  <div class="lg:w-1/2 md:w-2/3 mx-auto">
-    <% if @notifications.exists? %>
-      <%= render @notifications %>
-      <%= paginate @notifications %>
-    <% else %>
-      <p>通知はありません。</p>
-    <% end %>
-  </div>
-</div>
+<% if @notifications.exists? %>
+  <%= render @notifications %>
+  <%= paginate @notifications %>
+<% else %>
+  <p>通知はありません。</p>
+<% end %>

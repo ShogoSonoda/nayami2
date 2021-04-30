@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   root to: "posts#index"
+
+  get 'tags/index'
   
   devise_for :users, controllers: { registrations: 'users/registrations' }
   
@@ -12,15 +14,13 @@ Rails.application.routes.draw do
   end
 
   resources :posts do
-    resources :comments, only: [:new, :create, :destroy]
-    get :search, on: :collection
+    get :search_result, on: :collection
     get :sort_empathy, on: :collection
-    get :tag_index, on: :collection
     get :tag_posts, on: :collection
   end
-
-  # resources :messages, only: [:create]
-
+  
+  resources :comments, only: [:new, :create, :destroy]
+  
   resources :rooms, only: [:create, :show, :index]
 
   resources :notifications, only: :index
