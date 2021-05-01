@@ -18,9 +18,6 @@
         <div class="mt-1">
           <%= link_to "フォロー #{@user.followings.length}", followings_user_path(@user.id), class: "mr-2" %>
           <%= link_to "フォロワー #{@user.followers.length}", followers_user_path(@user.id) %>
-          <% if @user.profile? %>
-            <p class="text-base mt-1"><%= @user.profile %></p>
-          <% end %>
         </div>
       </div>
     </div>
@@ -32,6 +29,11 @@
       <%= render partial: "follow_form", locals: { user: @user } %>
 
     </div>
+  </div>
+  <div>
+    <% if @user.profile? %>
+      <p class="text-base mt-1"><%= @user.profile %></p>
+    <% end %>
   </div>
 </div>
 <div>
