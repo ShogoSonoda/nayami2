@@ -28,9 +28,10 @@ class RoomsController < ApplicationController
     @currentEntries = current_user.entries
     myRoomIds = []
     @currentEntries.each do |entry|
-      myRoomIds << entry.room.id
+      myRoomIds << entry.room_id
     end
     @anotherEntries = Entry.where(room_id: myRoomIds).where('user_id != ?', current_user.id)
+    # binding.pry
   end
 
   private
