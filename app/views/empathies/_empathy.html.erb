@@ -5,5 +5,5 @@
   <% else %>
     <button class="js-empathy-button <%= empathy_button_color %>" id="<%= post.id %>" value=" ">共感する</button>
   <% end %>
-  <div class="text-center"><%= post.empathies.count %></div>
+  <span><%= post.empathies.count %></span>
 <% end %>

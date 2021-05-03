@@ -7,7 +7,7 @@
   <div class="mt-1">
     <%= render partial: "tags/tag_list", locals: { post: post } %>
   </div>
-  <div class="flex justify-between mt-1">
+  <div class="md:flex justify-between mt-1">
     <div>
       <%= link_to user_path(post.user_id) do %>
         <div class="flex items-center">
@@ -23,7 +23,7 @@
         </div>
       <% end %>
     </div>
-    <div>
+    <div class="mt-1">
       <%= render partial: "empathies/empathy", locals: { post: post } %>
     </div>
   </div>
