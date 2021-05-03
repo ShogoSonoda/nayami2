@@ -7,13 +7,13 @@ class CommentsController < ApplicationController
     if comment.save
       post.create_notification_comment!(current_user, comment.id)
     end
-    redirect_back(fallback_location: root_path) 
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to post_path(params[:post_id])
+    redirect_back(fallback_location: root_path)
   end
 
   private
