@@ -1,6 +1,6 @@
 <div>
   <% @anotherEntries.preload(:user, :room).each do |e| %>
-    <div class="flex justify-start items-center border-b-2 py-2">
+    <div class="flex justify-between items-center border-b-2 py-2">
       <div class="flex items-center">
         <div class="mr-2">
           <%= link_to user_path(e.user_id) do %>
@@ -16,7 +16,7 @@
         </div>
       </div>
       <div>
-        <%= link_to "DMを送る", room_path(e.room_id) %>
+        <%= link_to "DMを送る", room_path(e.room_id), class: "border-b-2" %>
       </div>
     </div>
   <% end %>
