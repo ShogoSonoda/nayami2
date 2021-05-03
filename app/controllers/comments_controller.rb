@@ -6,13 +6,17 @@ class CommentsController < ApplicationController
     post = comment.post
     if comment.save
       post.create_notification_comment!(current_user, comment.id)
+      flash[:success] = "コメントの投稿に成功しました。"
+    else
+      flash[:danger] = "コメントの投稿に失敗しました。"
     end
     redirect_back(fallback_location: root_path)
   end
-
+  
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
+    flash[:success] = "コメントの削除に成功しました。"
     redirect_back(fallback_location: root_path)
   end
 

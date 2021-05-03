@@ -10,6 +10,11 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">  </head>
   <body class="relative min-h-screen box-border pb-10 bg-gray-100">
+    <div class="text-center">
+      <%= flash[:notice] %>
+      <%= flash[:success] %>
+      <%= flash[:danger] %>
+    </div>
     <header class="bg-gray-400 mb-5">
       <%= render 'layouts/header' %>
     </header>
