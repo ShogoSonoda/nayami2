@@ -1,5 +1,5 @@
-<div class="mx-auto p-4">
-  <div class="flex justify-between">
+<div class="mx-auto">
+  <div class="sm:flex justify-between">
     <div class="flex items-start">
       <div>
         <% if @user.avatar.url %>
@@ -21,9 +21,9 @@
         </div>
       </div>
     </div>
-    <div>
+    <div class="mt-1">
       <% if user_signed_in? && current_user == @user %>
-        <%= link_to "編集", edit_user_registration_path(current_user.id) %>
+        <%= link_to "プロフィール編集", edit_user_registration_path(current_user.id) %>
       <% end %>
 
       <%= render partial: "follow_form", locals: { user: @user } %>
