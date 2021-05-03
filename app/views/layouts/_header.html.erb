@@ -1,24 +1,36 @@
-<div class="container mx-auto flex items-center justify-between py-2">
-  <div class="flex items-center">
-    <%= link_to "HOME", root_path, class: "ml-3 text-xl" %>
-    <div class="ml-2">
+<div class="container mx-auto md:flex items-center justify-between py-2">
+  <div class="flex justify-around items-center">
+    <%= link_to "Nayami2", root_path, class: "md:ml-3 text-xl" %>
+    <div class="lg:ml-2">
       <%= render partial: "posts/search_form" %>
     </div>
   </div>
-  <div class="">
-    <% if user_signed_in? %>
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-5" %>
-      <%= link_to "#{current_user.nickname}", user_path(current_user.id), class: "mr-5" %>
-      <%= link_to "新規投稿", new_post_path, class: "mr-5 bg-yellow-500 p-2 text-white cursor-pointer hover:bg-yellow-700" %>
-      <%= link_to notifications_path do %>
+  <div class="items-center flex justify-around">
+      <%= link_to new_post_path, class: "md:mr-5" do %>
+        <i class="fas fa-edit"></i>
+        新規投稿
+      <% end %>
+      <%= link_to notifications_path, class: "md:mr-5" do %>
         <% if unchecked_notifications.any? %>
           <i class="fas fa-bell"></i><i class="fas fa-exclamation ml-1"></i>
         <% else %>
           <i class="fas fa-bell"></i>
         <% end %>
+        通知
+      <% end %>
+      <%= link_to destroy_user_session_path, method: :delete, class: "md:mr-5" do %>
+        <i class="fas fa-sign-out-alt"></i>
+        ログアウト
+      <% end %>
+    <% if user_signed_in? %>
+      <%= link_to user_path(current_user.id) do %>
+        <% if current_user.avatar.url %>
+          <%= image_tag current_user.avatar.url, class: "w-10 h-10 rounded-full inline-flex items-center justify-center md:mr-5" %>
+        <% else %>
+          <%= image_tag 'default.png', class: "w-10 h-10 rounded-full inline-flex items-center justify-center md:mr-5" %>
+        <% end %>
       <% end %>
     <% else %>
-      <%= link_to "ゲストログイン(閲覧用)", users_guest_sign_in_path, method: :post, class: "mr-5" %>
       <%= link_to "新規登録", new_user_registration_path, class: "mr-5" %>
       <%= link_to "ログイン", new_user_session_path, class: "mr-5" %>
     <% end %>
