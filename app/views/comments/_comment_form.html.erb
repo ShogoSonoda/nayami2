@@ -2,8 +2,8 @@
 
 <div>
   <div class="flex items-center">
-    <% if @post.user.avatar.url %>
-      <%= image_tag @post.user.avatar.url, class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
+    <% if current_user.avatar.url %>
+      <%= image_tag current_user.avatar.url, class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
     <% else %>
       <%= image_tag 'default.png', class: "w-8 h-8 rounded-full inline-flex items-center justify-center" %>
     <% end %>
