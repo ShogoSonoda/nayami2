@@ -27,6 +27,13 @@ class User < ApplicationRecord
   validates :nickname, presence: true
   validates :profile, length: { maximum: 200 }
 
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |user|
+      user.nickname = "ゲストユーザー"
+      user.password = SecureRandom.urlsafe_base64
+    end
+  end
+
   def following(user)
     active_relationships.where(relationships: { follower_id: user}).last
   end
