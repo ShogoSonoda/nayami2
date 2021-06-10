@@ -1,6 +1,6 @@
 document.addEventListener('turbolinks:load', () => {
-  const empathyColor = "js-empathy-button inline-block border border-red-500 py-1 px-2 rounded-lg text-white bg-red-500";
-  const unempathyColor = "js-empathy-button inline-block border border-gray-700 py-1 px-2 rounded-lg text-gray-700 bg-white";
+  const empathyColor = "js-empathy-button inline-block border border-red-500 py-1 px-2 rounded-lg text-white bg-red-500 cursor-pointer hover:bg-red-700";
+  const unempathyColor = "js-empathy-button inline-block border border-gray-700 py-1 px-2 rounded-lg text-gray-700 bg-white cursor-pointer hover:bg-red-300";
   const empathyEndpoint = '/api/v1/empathies';
   const getCsrfToken = () => {
     const metas = document.getElementsByTagName('meta');
@@ -36,37 +36,51 @@ document.addEventListener('turbolinks:load', () => {
   for (let i = 0; i < empathyButtons.length; i++) {
     empathyButtons[i].addEventListener('click', event => {
       const button = event.target;
-
-      const createEmpathy = (postId, button) => {
+      console.log(button);
+      let empathyCount = Number(button.children[0].value);
+      const postId = Number(button.children[1].value);
+      const empathyId = Number(button.children[2].value);
+      console.log(empathyCount);
+      console.log(postId);
+      console.log(empathyId);
+      
+      const createEmpathy = (button, postId, empathyId, empathyCount) => {
         sendRequest(empathyEndpoint, 'POST', { post_id: postId })
-        .then((data) => {
-          button.value = data.empathy_id;
-        });
-      }
+          .then((data) => {
+            empathyCount += 1;
+            button.className = empathyColor;
+            button.innerHTML = `
+              共感済み ${empathyCount}
+              <input type="hidden" id="empathy_count" value="${empathyCount}">
+              <input type="hidden" id="post_id" value="${postId}">
+              <input type="hidden" id="empathy_id" value="${data.empathy_id}">`;
+          });
+        }
         
-      const deleteEmpathy = (empathyId, button) => {
-        const deleteEmpathyEndpoint = empathyEndpoint + '/' + `${empathyId}`;
-        sendRequest(deleteEmpathyEndpoint, 'DELETE', { id: empathyId })
-        .then(() => {
-          button.value = '';
+        const deleteEmpathy = (button, postId, empathyId, empathyCount) => {
+          const deleteEmpathyEndpoint = empathyEndpoint + '/' + `${empathyId}`;
+          sendRequest(deleteEmpathyEndpoint, 'DELETE', { id: empathyId })
+          .then(() => {
+            empathyCount -= 1;
+            button.className = unempathyColor;
+            button.innerHTML = `
+              共感する ${empathyCount}
+              <input type="hidden" id="empathy_count" value="${empathyCount}">
+              <input type="hidden" id="post_id" value="${postId}">
+              <input type="hidden" id="empathy_id" value="">`;
         });
       }
 
       if (!!button) {
         const currentColor = button.className;
-        const postId = button.id;
-        const empathyId = button.value;
+        
         // 共感する場合
         if (currentColor === unempathyColor) {
-          button.className = empathyColor;
-          button.innerText = '共感済み';
-          createEmpathy(postId, button);
+          createEmpathy(button, postId, empathyId, empathyCount);
         }
         // 共感済みの場合
         else {
-          button.className = unempathyColor;
-          button.innerText = '共感する';
-          deleteEmpathy(empathyId, button);
+          deleteEmpathy(button, postId, empathyId, empathyCount);
         }
       }
     });

@@ -1,9 +1,20 @@
 <% if user_signed_in? %>
   <% empathy_button_color = post.empathy_by?(current_user) ? Empathy::EMPATHY_COLOR : Empathy::UNEMPATHY_COLOR %>
   <% if post.empathy_by?(current_user) %>
-    <button class="js-empathy-button <%= empathy_button_color %>" id="<%= post.id %>" value="<%= post.empathy_by(current_user).id %>">共感済み</button>
+    <div class="js-empathy-button <%= empathy_button_color %>">
+      共感済み
+      <%= post.empathies.count %>
+      <input type="hidden" id="empathy_count" value="<%= post.empathies.count %>">
+      <input type="hidden" id="post_id" value="<%= post.id %>">
+      <input type="hidden" id="empathy_id" value="<%= post.empathy_by(current_user).id %>">
+    </div>
   <% else %>
-    <button class="js-empathy-button <%= empathy_button_color %>" id="<%= post.id %>" value=" ">共感する</button>
+    <div class="js-empathy-button <%= empathy_button_color %>">
+      共感する
+      <%= post.empathies.count %>
+      <input type="hidden" id="empathy_count" value="<%= post.empathies.count %>">
+      <input type="hidden" id="post_id" value="<%= post.id %>">
+      <input type="hidden" id="empathy_id" value="">
+    </div>
   <% end %>
-  <span><%= post.empathies.count %></span>
 <% end %>
