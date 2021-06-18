@@ -23,10 +23,10 @@ JSONデータを返している点
 
 ## 使用した技術
 - フロントエンド
- 　　- HTML/CSS
- 　　- JavaScript
- 　　- JQuery
-　 　- tailwindCSS
+  - HTML/CSS
+  - JavaScript
+  - JQuery
+  - tailwindCSS
 - バックエンド
   - Ruby(3.0)
   - Ruby on Rails(6.1.3)
