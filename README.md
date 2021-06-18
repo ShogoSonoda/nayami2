@@ -44,5 +44,8 @@ JSONデータを返している点
   - RSpec
   - Git/Github
  
- ## ER図
-![](https://i.gyazo.com/e6b35b8e96575befb511a8a959355a04.png)
+## ER図
+![](https://i.gyazo.com/bdc404819007cb27824c1616ec1c1b06.png)
+
+## インフラ構成図
+![](https://i.gyazo.com/78e2aa18da60df3f95234519e8503515.png)
