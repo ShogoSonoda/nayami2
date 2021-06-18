@@ -45,4 +45,4 @@ JSONデータを返している点
   - Git/Github
  
  ## ER図
- ![ER図](https://drive.google.com/file/d/1wH8cfz5QnkRvXaFr-N6_s2dIy-8Pgz85/view?usp=sharing)
+ ![ER図](https://gyazo.com/e6b35b8e96575befb511a8a959355a04)
