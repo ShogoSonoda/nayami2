@@ -37,3 +37,4 @@ yarn-debug.log*
 
 /public/uploads/*
 /db/mysql_data/*
+/README.md
