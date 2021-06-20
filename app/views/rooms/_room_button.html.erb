@@ -1,18 +1,18 @@
 <%# 自分のマイページの場合 %>
 <% if user_signed_in? && current_user == user %>
-  <%= link_to "DM一覧", rooms_path, class: "border-b-2" %>
+  <%= link_to "DM一覧", rooms_path, class: "border-2 rounded py-1 px-2 bg-blue-200" %>
 <% end %>
 
 <%# 他人のマイページの場合 %>
 <% if user_signed_in? && current_user != user %>
   <% if isRoom == true %>
-    <%= link_to "DMを送る", room_path(roomId), class: "border-b-2" %>
+    <%= link_to "DMを送る", room_path(roomId), class: "border-2 rounded py-1 px-2 bg-blue-200" %>
   <% else %>
     <%= form_with model: room do |f| %>
       <%= fields_for entry do |e| %>
         <%= e.hidden_field :user_id, value: user.id %>
       <% end %>
-        <%= f.submit "DMを送る", class: "bg-gray-100 cursor-pointer border-b-2" %>
+        <%= f.submit "DMを送る", class: "cursor-pointer border-2 rounded py-1 px-2 bg-blue-200" %>
     <% end %>
   <% end %>
 <% end %>

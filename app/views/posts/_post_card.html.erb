@@ -1,7 +1,7 @@
 <div class="border-b-2 p-4 bg-white">
   <div>
     <%= link_to post_path(post.id) do %>
-      <p class="text-lg"><%= post.text.truncate(50) %></p>
+      <p class="text-lg font-semibold"><%= post.text.truncate(50) %></p>
     <% end %>
   </div>
   <div class="mt-1">

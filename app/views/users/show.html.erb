@@ -10,7 +10,7 @@
       </div>
       <div class="ml-2">
         <div>
-          <p class="text-2xl"><%= @user.nickname %></p>
+          <p class="text-2xl font-extrabold"><%= @user.nickname %></p>
           <div class="mt-2">
             <%= render partial: "rooms/room_button", locals: { user: @user, isRoom: @isRoom, roomId: @roomId, room: @room, entry: @entry } %>
           </div>
@@ -23,7 +23,7 @@
     </div>
     <div class="mt-1">
       <% if user_signed_in? && current_user == @user %>
-        <%= link_to "プロフィール編集", edit_user_registration_path(current_user.id) %>
+        <%= link_to "プロフィール編集", edit_user_registration_path(current_user.id), class: "border-2 rounded py-1 px-2 bg-blue-200" %>
       <% end %>
 
       <%= render partial: "follow_form", locals: { user: @user } %>
@@ -32,12 +32,12 @@
   </div>
   <div>
     <% if @user.profile? %>
-      <p class="text-base mt-1"><%= @user.profile %></p>
+      <p class="text-base my-4 font-semibold"><%= @user.profile %></p>
     <% end %>
   </div>
 </div>
 <div>
-  <p class="text-xl mb-2 border-b-2 border-black">投稿一覧</p>
+  <p class="text-xl my-2 border-b-2 border-black">投稿一覧</p>
   <% @posts.each do |post| %>
     <%= render partial: 'posts/post_card', locals: { post: post } %>
   <% end %>
