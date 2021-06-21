@@ -29,6 +29,20 @@
 社会人の悩みを持った人々
 
 ## 使い方
+### 悩み新規投稿する
+![f564f8ddb600183851b6f3a2b459695e](https://user-images.githubusercontent.com/67961499/122759947-866ba280-d2d5-11eb-86cf-0ad6b20bee01.gif)
+
+### コメントする
+![6b911afbbf1b5d4f949040272a9fea1b](https://user-images.githubusercontent.com/67961499/122760977-ad76a400-d2d6-11eb-9a9c-6074059b0322.gif)
+
+### 共感する
+![5f06416f55ed60c451e1a8a9c8b14e64](https://user-images.githubusercontent.com/67961499/122761522-4dccc880-d2d7-11eb-85e8-f528ec14fdbf.gif)
+
+### フォローする
+![b60f4df6837e5e3df3d6ea2d2d7702e9](https://user-images.githubusercontent.com/67961499/122761750-89679280-d2d7-11eb-8b73-3fe29b0288a1.gif)
+
+### メッセージを送る
+![c78b5fa81f45bd1ed706ae0348b4ed1b](https://user-images.githubusercontent.com/67961499/122762231-0f83d900-d2d8-11eb-988f-be0619f07110.gif)
 
 
 ## アピールポイント
